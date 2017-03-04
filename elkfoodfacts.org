@@ -3,22 +3,49 @@
 #+EMAIL:     geraud.dugedebernonville@zenika.com
 #+DATE:      10/03/2017
 
-
-* Programme
-
+* Introduction
+** Programme
+*** Bla
 + Présentation Open Food Facts
 + Présentation ELK
 + Installation
 + Ingestion jeu d'essai
 + Premier dashboard
-+ ... _TODO_
++ Affiner l'import
++ Chargement complet
 
-* Sécurité alimentaire
+
+** Sécurité alimentaire
++ Vache folle
++ Grippe aviaire
++ Perturbateurs endocriniens
++ Allergènes
++ Cancérogènes
++ ...
+
+** Open Food Facts
++ Base de données ouverte
++ Composition des produits alimentaires
++ ...
+
+** ELK
++ Elasticsearch 
+  + Moteur de recherche
+  + 
+  + 
++ Logstash
+  + Ingestion
+  + ETL
++ Kibana
+  + Visualisation
+  + ...
+
+
 
 #+DESCRIPTION: 
 #+KEYWORDS: 
-#+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+LANGUAGE:  fr
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -28,3 +55,4 @@
 #+startup: beamer
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [bigger]
+#+BEAMER_FRAME_LEVEL: 2
