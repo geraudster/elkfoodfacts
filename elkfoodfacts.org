@@ -5,7 +5,7 @@
 
 * Introduction
 ** Programme
-*** Bla
+
 + Présentation Open Food Facts
 + Présentation ELK
 + Installation
@@ -15,7 +15,8 @@
 + Chargement complet
 
 
-** Sécurité alimentaire
+** Qualité des aliments & sécurité sanitaire
+
 + Vache folle
 + Grippe aviaire
 + Perturbateurs endocriniens
@@ -24,21 +25,80 @@
 + ...
 
 ** Open Food Facts
-+ Base de données ouverte
-+ Composition des produits alimentaires
-+ ...
+
+
+#+ATTR_LATEX: :width 5cm
+[[./images/openfoodfacts-logo-fr.png]]
+
+Base de données sur les produits alimentaires faite par tout le monde,
+pour tout le monde.
+
+** Open Food Facts - Mobile
+
+*** Android App 						      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+ATTR_LATEX: :height 0.75\textheight
+[[./images/off-android-app.png]]
+
+*** Additifs 							      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+ATTR_LATEX: :height 0.75\textheight
+[[./images/off-android-app-additives.jpg]]
 
 ** ELK
-+ Elasticsearch 
-  + Moteur de recherche
-  + 
-  + 
-+ Logstash
-  + Ingestion
-  + ETL
-+ Kibana
-  + Visualisation
-  + ...
+
+*** Elasticsearch 						      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+[[./images/icon-elasticsearch-bb.png]]
+
++ Moteur de recherche
++ Analyse et stockage de données
+
+*** Logstash 							      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+[[./images/icon-logstash-bb.png]]
+
++ Ingestion des données
+
+*** Kibana 							      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+[[./images/icon-kibana-bb.png]]
+
++ Visualisation
+
+** Installation
+
+Récupérer les zips et décompresser
+
+** Jouons avec Elasticsearch
+
+Exemples de requêtes
+
+** Jouons avec Logstash
+
+Import des données d'exemple
+
+** Jouons avec Kibana
+
+Premier dashboard
+
+** Chargeons toute la base !
+
 
 
 
@@ -56,3 +116,5 @@
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [bigger]
 #+BEAMER_FRAME_LEVEL: 2
+#+LaTeX_CLASS_OPTIONS: [t]
+#+latex_header: \mode<beamer>{\usetheme{CambridgeUS}}
