@@ -3,18 +3,7 @@
 #+EMAIL:     geraud.dugedebernonville@zenika.com
 #+DATE:      10/03/2017
 
-* Introduction
-** Programme
-
-+ Présentation Open Food Facts
-+ Présentation ELK
-+ Installation
-+ Ingestion jeu d'essai
-+ Premier dashboard
-+ Affiner l'import
-+ Chargement complet
-
-
+* Contexte
 ** Qualité des aliments & sécurité sanitaire
 
 + Vache folle
@@ -25,7 +14,6 @@
 + ...
 
 ** Open Food Facts
-
 
 #+ATTR_LATEX: :width 5cm
 [[./images/openfoodfacts-logo-fr.png]]
@@ -51,6 +39,7 @@ pour tout le monde.
 #+ATTR_LATEX: :height 0.75\textheight
 [[./images/off-android-app-additives.jpg]]
 
+* Les outils
 ** ELK
 
 *** Elasticsearch 						      :BMCOL:
@@ -71,7 +60,7 @@ pour tout le monde.
 [[./images/icon-logstash-bb.png]]
 
 + Ingestion des données
-
+  
 *** Kibana 							      :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.3
@@ -81,14 +70,70 @@ pour tout le monde.
 
 + Visualisation
 
+** Topo Elasticsearch
+
+_Exemples de requêtes_
+
+* Entraînement
 ** Installation
 
-Récupérer les zips et décompresser
+Version 5.2.2
+
+1. Récupérer les archives et les décompresser
+2. Lancer elasticsearch[.bat], kibana[.bat]
+3. Ouvrir http://localhost:5601
 
 ** Jouons avec Elasticsearch
 
-Exemples de requêtes
+*** Indexer un document 					    :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.5
+:END:
 
+#+BEGIN_SRC json
+POST /store/food
+{
+  "name": "Chips au vinaigre",
+  "category" : "apero",
+  "lipides" : 20,
+  "glucides" : 10,
+  "proteines" : 5
+}
+
+POST /store/food
+{
+  "name": "Langues piquantes",
+  "category" : "confiserie",
+  "lipides" : 0,
+  "glucides" : 90,
+  "proteines" : 5
+}
+#+END_SRC
+
+*** Requêter 				      :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.5
+:END:
+
+#+BEGIN_SRC json
+GET /store/food/_search
+
+GET /store/_search?q=langues
+
+GET /store/_search
+{
+  
+  "query": {
+    "match": {
+      "name": "langues"
+    }
+  }
+}
+#+END_SRC
+
+* Pratique
 ** Jouons avec Logstash
 
 Import des données d'exemple
@@ -99,7 +144,9 @@ Premier dashboard
 
 ** Chargeons toute la base !
 
+* Conclusion
 
+** Pour aller plus loin
 
 
 #+DESCRIPTION: 
@@ -118,3 +165,5 @@ Premier dashboard
 #+BEAMER_FRAME_LEVEL: 2
 #+LaTeX_CLASS_OPTIONS: [t]
 #+latex_header: \mode<beamer>{\usetheme{CambridgeUS}}
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
