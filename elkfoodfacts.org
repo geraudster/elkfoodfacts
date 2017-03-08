@@ -64,17 +64,39 @@ pour tout le monde.
 *** Kibana 							      :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.3
-:END:
+:END:      
 
 [[./images/icon-kibana-bb.png]]
 
 + Visualisation
 
+* Entraînement
 ** Topo Elasticsearch
 
-_Exemples de requêtes_
+*** Document JSON
 
-* Entraînement
+#+BEGIN_SRC js
+{
+  "name": "Chips au vinaigre",
+  "category" : "apero",
+  "lipides" : 20,
+  "glucides" : 10,
+  "proteines" : 5
+}
+#+END_SRC
+
+*** API REST
+
+#+BEGIN_SRC js
+<GET|POST|PUT|DELETE>
+http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
+
+#+END_SRC
+
++ index
++ type
++ _keyword : _search, _mapping,...
+
 ** Installation
 
 Version 5.2.2
@@ -82,6 +104,7 @@ Version 5.2.2
 1. Récupérer les archives et les décompresser
 2. Lancer elasticsearch[.bat], kibana[.bat]
 3. Ouvrir http://localhost:5601
+4. Aller dans _Dev tools_
 
 ** Jouons avec Elasticsearch
 
@@ -133,16 +156,58 @@ GET /store/_search
 }
 #+END_SRC
 
-* Pratique
-** Jouons avec Logstash
+** Topo Logstash
 
-Import des données d'exemple
+*** Lancement
+
+#+BEGIN_SRC sh
+logstash -f logstash.conf
+#+END_SRC
+
+*** Fichier conf
+
+#+BEGIN_SRC ruby
+input { ... }
+filter { ... }
+output { ... }
+#+END_SRC
+
+** Jouons avec Logstash - Données de test
+
+1. Récupérer le fichier CSV d'exemple
+2. Récupérer le fichier conf d'exemple
+  #+INCLUDE: "food.conf" src ruby
+3. Lancer logstash
+  #+BEGIN_SRC sh
+logstash -f food.conf
+  #+END_SRC
+4. Copier le CSV d'exemple dans le répertoire data/openfoodfacts
+5. Patienter...
+
+** Un peu plus loin : CSV et sortie Elasticsearch
+
+*** Ajout du filtre CSV
+1. Ajouter le filter suivant
+  #+INCLUDE: "filter.conf" src ruby
+2. Relancer logstash
+
+*** Ajout de la sortie Elasticsearch
+1. Ajouter l'output suivant
+  #+BEGIN_SRC ruby
+	elasticsearch {	}
+  #+END_SRC
+2. Relancer logstash
+
+** Query time !
+
 
 ** Jouons avec Kibana
 
 Premier dashboard
 
+* Produit final
 ** Chargeons toute la base !
+
 
 * Conclusion
 
