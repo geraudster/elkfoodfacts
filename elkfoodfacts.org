@@ -99,7 +99,15 @@ http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
 
 ** Installation
 
-Version 5.2.2
+*** Pré-requis 						       :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+
++ Une JVM 1.8 minimum doit être installée
++ La variable =JAVA_HOME= doit être définie
+
+*** Version 5.2.2
 
 1. Récupérer les archives et les décompresser
 2. Lancer elasticsearch[.bat], kibana[.bat]
@@ -174,8 +182,8 @@ output { ... }
 
 ** Jouons avec Logstash - Données de test
 
-1. Récupérer le fichier CSV d'exemple
-2. Récupérer le fichier conf d'exemple
+1. Récupérer le fichier CSV =sample-fr.openfoodfacts.org.products.csv=
+2. Récupérer le fichier =food.conf=
   #+INCLUDE: "student/food.conf" src ruby
 3. Lancer logstash
   #+BEGIN_SRC sh
@@ -184,26 +192,77 @@ logstash -f food.conf
 4. Copier le CSV d'exemple dans le répertoire data/openfoodfacts
 5. Patienter...
 
-** Un peu plus loin : CSV et sortie Elasticsearch
+** Ajout du filtre CSV
 
-*** Ajout du filtre CSV
-1. Ajouter le filter suivant
+1. Ajouter le filter suivant (copier depuis =filter.conf=)
   #+INCLUDE: "student/filter.conf" src ruby
-2. Relancer logstash
+2. Supprimer le fichier =since_db=
+3. Relancer logstash
 
-*** Ajout de la sortie Elasticsearch
+** Ajout de la sortie Elasticsearch
 1. Ajouter l'output suivant
   #+BEGIN_SRC ruby
 	elasticsearch {	}
   #+END_SRC
 2. Relancer logstash
 
+*** Dans Kibana > Dev Tools 				      :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+
+#+BEGIN_SRC js
+GET /logstash-*/_search
+GET /logstash-*/_search?q=e171
+#+END_SRC
+
+
 ** Query time !
 
+Nombre de catégories:
+#+BEGIN_SRC js
+GET /logstash-*/_search
+{
+  "aggs": {
+    "categories_count": {
+      "value_count": {
+        "field": "main_category.keyword"
+      }
+    }
+  }
+}
+#+END_SRC
+
+
+** Query time !
+
+Nombre de produits par catégories:
+#+BEGIN_SRC js
+GET /logstash-*/_search
+{
+  "aggs": {
+    "par_categorie": {
+      "terms": {
+        "field": "main_category_fr.keyword",
+        "size": 10
+      },
+      "aggs": {
+        "nombre": {
+          "cardinality": {
+            "field": "url.keyword"
+          }
+        }
+      }
+    }
+  }
+}
+#+END_SRC
 
 ** Jouons avec Kibana
 
-Premier dashboard
+1. Configurer l'index, décocher *Index contains time-based events*
+2. Accéder à l'onglet *Discover*
+3. Sélectionner les champs =additives_fr=, ...
 
 * Produit final
 ** Chargeons toute la base !
