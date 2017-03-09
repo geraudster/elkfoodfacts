@@ -8,10 +8,23 @@
 
 + Vache folle
 + Grippe aviaire
-+ Perturbateurs endocriniens
-+ Allergènes
-+ Cancérogènes
-+ ...
++ Perturbateurs endocriniens (pesticides, plastiques et 
+ autres substances chimiques...)
++ OGM
++ Allergènes (gluten, crustacés, oeufs, arachides, soja, ...)
++ Cancérogènes (E171 - oxyde de titane *?*)
+
+*** Questions :						       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+ + Où trouve-t-on ces éléments ?
+ + Quelles catégories de produit sont les plus concernées ?
+ + Quelles marques ?
+
+** Mais surtout... Y a t'il du E171 dans la bière ?
+
+[[./images/beer.jpg]]
 
 ** Open Food Facts
 
@@ -39,6 +52,10 @@ pour tout le monde.
 #+ATTR_LATEX: :height 0.75\textheight
 [[./images/off-android-app-additives.jpg]]
 
+** Ce qu'on aimerait avoir
+
+[[./images/dashboard.png]]
+
 * Les outils
 ** ELK
 
@@ -47,6 +64,7 @@ pour tout le monde.
 :BEAMER_col: 0.3
 :END:
 
+#+ATTR_LATEX: :height 0.2\textheight
 [[./images/icon-elasticsearch-bb.png]]
 
 + Moteur de recherche
@@ -57,6 +75,7 @@ pour tout le monde.
 :BEAMER_col: 0.3
 :END:
 
+#+ATTR_LATEX: :height 0.2\textheight
 [[./images/icon-logstash-bb.png]]
 
 + Ingestion des données
@@ -66,6 +85,7 @@ pour tout le monde.
 :BEAMER_col: 0.3
 :END:      
 
+#+ATTR_LATEX: :height 0.2\textheight
 [[./images/icon-kibana-bb.png]]
 
 + Visualisation
@@ -110,9 +130,13 @@ http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
 *** Version 5.2.2
 
 1. Récupérer les archives et les décompresser
-2. Lancer elasticsearch[.bat], kibana[.bat]
-3. Ouvrir http://localhost:5601
-4. Aller dans _Dev tools_
+2. Ajouter la propriété suivante dans =elasticsearch/config/elasticsearch.yml=
+   #+BEGIN_SRC python
+cluster.name: <user>-cluster
+   #+END_SRC
+3. Lancer elasticsearch[.bat], kibana[.bat]
+4. Ouvrir http://localhost:5601
+5. Aller dans _Dev Tools_
 
 ** Jouons avec Elasticsearch
 
@@ -155,7 +179,6 @@ GET /store/_search?q=langues
 
 GET /store/_search
 {
-  
   "query": {
     "match": {
       "name": "langues"
@@ -236,7 +259,7 @@ GET /logstash-*/_search
 
 ** Query time !
 
-Nombre de produits par catégories:
+Répartition des additifs par catégories:
 #+BEGIN_SRC js
 GET /logstash-*/_search
 {
@@ -247,9 +270,9 @@ GET /logstash-*/_search
         "size": 10
       },
       "aggs": {
-        "nombre": {
-          "cardinality": {
-            "field": "url.keyword"
+        "par_additif": {
+          "terms": {
+            "field": "additives_fr.keyword"
           }
         }
       }
@@ -260,18 +283,118 @@ GET /logstash-*/_search
 
 ** Jouons avec Kibana
 
+*** Navigation dans les données
 1. Configurer l'index, décocher *Index contains time-based events*
 2. Accéder à l'onglet *Discover*
-3. Sélectionner les champs =additives_fr=, ...
+3. Sélectionner les champs =additives_fr=, =main_category_fr=,...
+
+*** Première visualisation - Nuage des principales catégories
+1. Accéder à l'onglet *Visualize*
+2. Sélectionner *Tag Cloud*
+3. Configurer un bucket *Tags*
+   + Aggregation = Terms
+   + Field = =main_category_fr.keyword=
+   + Size = 50
+   + Custom Label = Catégories principales
+4. Sauvegarder le widget
+
+** Kibana - Suite
+*** Tableau des marques
+1. Sélectionner *Table*
+2. Créer un bucket *Split Rows*
+   + Aggregation = Terms
+   + Field = =brands.keyword=
+   + Size = 20
+   + Custom Label = Marques
+3. Sauvegarder
+
+** Kibana - Mmmmm Donut
+*** Donut des allergènes
+1. Sélectionner *Pie chart*
+2. Créer un bucket *Split Slices*
+   + Aggregation = Terms
+   + Field = =allergens.keyword=
+   + Size = 10
+   + Custom Label = Allergènes
+   + Options > Sélectionner *Donut*
+3. Sauvegarder
+
+** Kibana - Fin (?)
+*** Histogramme des additifs
+1. Sélectionner *Vertical Bar Chart*
+2. À vous de jouer...
+
+*** Tag cloud des produits
+On veut ça:
+[[./images/tagcloud.png]]
+
+** Dashboard
+
+1. Ajouter tous les widgets dans un nouveau dashboard
+2. Sauvegarder
 
 * Produit final
 ** Chargeons toute la base !
-
++ L'objectif est de voir le résultat avec l'ensemble des données
++ Pour éviter les doublons, on supprime l'index =logstash-*=
++ Supprimer l'output =stdout=
++ *Décompresser* ensuite le fichier =fr.openfoodfacts.org.products.csv.gz=
+ dans votre répertoire =data=
++ Lancer logstash
 
 * Conclusion
 
+** Beer
+
+*** Image							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :END:
+
+[[./images/beer-good.jpg]]
+
+*** Texte							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+
+Mission accomplie !
+
++ Requêtes avec Elasticsearch
++ Ingestion de données avec Logstash
++ Visualisation avec Kibana
+
 ** Pour aller plus loin
 
++ Fixer problèmes d'import
+  + Champs trop longs
+  + Encodage
+  + Guillemets mal positionnés
++ Découper les champs, par exemple :
+  + E330 - Acide citrique,E150c - Caramel ammoniacal,E300 - Acide ascorbique
+  + Frais,Produits laitiers,Desserts,Fromages,Fromages blancs,Fromages-blancs-aromatises
++ Configurer l'analyseur pour utiliser la langue française
++ Utiliser les informations de géolocalisation
+
+** Merci
+
+*** Col1							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.3
+    :END:
+
+*** ? 							 :B_alertblock:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.3
+    :BEAMER_env: alertblock
+    :END:
+
+Questions
+
+*** Col3 							      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.3
+    :END:
 
 #+DESCRIPTION: 
 #+KEYWORDS: 
@@ -291,3 +414,4 @@ GET /logstash-*/_search
 #+latex_header: \mode<beamer>{\usetheme{CambridgeUS}}
 #+LATEX_HEADER: \RequirePackage{fancyvrb}
 #+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
