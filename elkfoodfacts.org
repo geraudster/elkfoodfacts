@@ -176,7 +176,7 @@ output { ... }
 
 1. Récupérer le fichier CSV d'exemple
 2. Récupérer le fichier conf d'exemple
-  #+INCLUDE: "food.conf" src ruby
+  #+INCLUDE: "student/food.conf" src ruby
 3. Lancer logstash
   #+BEGIN_SRC sh
 logstash -f food.conf
@@ -188,7 +188,7 @@ logstash -f food.conf
 
 *** Ajout du filtre CSV
 1. Ajouter le filter suivant
-  #+INCLUDE: "filter.conf" src ruby
+  #+INCLUDE: "student/filter.conf" src ruby
 2. Relancer logstash
 
 *** Ajout de la sortie Elasticsearch
