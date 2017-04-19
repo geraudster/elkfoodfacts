@@ -1,4 +1,4 @@
-#+TITLE:     ELK, dis-moi ce qu'il y a dans mon assiette
+#+TITLE:     Elastic, dis-moi ce qu'il y a dans mon assiette
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
 #+DATE:      10/03/2017

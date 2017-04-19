@@ -1,0 +1,30 @@
+* Elastic, dis-moi ce qu'il y a dans mon assiette
+
+La qualité sanitaire de nos aliments est un sujet qui nous préoccupe
+de plus en plus. On a pu le voir ces dernières années avec les
+enchaînements de crises sanitaires autour de la vache folle, la grippe
+aviaire, les OGMs, les allergènes et plus récemment la découverte de
+produits potentiellement cancérogènes comme le dioxyde de
+titane. [[https://fr.openfoodfacts.org/data][OpenFoodacts]] est une
+base de données recensant plusieurs milliers d'aliments (pâtes,
+biscuits, épicerie, bonbons...) disponibles dans le commerce. Cette
+base est libre d'accès sous licence Open Database License et contient
+pour chaque aliment des caractéristiques telles que :
+
+- la description
+- les ingrédients 
+- les additifs
+
+Sous forme d'atelier, les participants apprendront à charger les
+données dans Elasticsearch à l'aide de Logstash. Puis ils créeront
+leurs dashboards afin par exemple de recenser les catégories de
+produits les plus allergènes, ou lister les produits dont le E171
+entre dans la composition...
+
+* Helpers
+
+Retrieve fields to be split:
+
+```
+head -1 ../data/sample-fr.openfoodfacts.org.products.csv  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf 'split => { "%s" => "," }\n'
+```
