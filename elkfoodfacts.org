@@ -1,7 +1,7 @@
 #+TITLE:     Elastic, dis-moi ce qu'il y a dans mon assiette
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-#+DATE:      10/03/2017
+#+DATE:      09/05/2017
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
@@ -127,16 +127,12 @@ http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
 + Une JVM 1.8 minimum doit être installée
 + La variable =JAVA_HOME= doit être définie
 
-*** Version 5.2.2
+*** Version 5.x
 
 1. Récupérer les archives et les décompresser
-2. Ajouter la propriété suivante dans =elasticsearch/config/elasticsearch.yml=
-   #+BEGIN_SRC python
-cluster.name: <user>-cluster
-   #+END_SRC
-3. Lancer elasticsearch[.bat], kibana[.bat]
-4. Ouvrir http://localhost:5601
-5. Aller dans _Dev Tools_
+2. Lancer elasticsearch[.bat], kibana[.bat]
+3. Ouvrir http://localhost:5601
+4. Aller dans _Dev Tools_
 
 ** Jouons avec Elasticsearch
 
@@ -238,6 +234,16 @@ logstash -f food.conf
 GET /logstash-*/_search
 GET /logstash-*/_search?q=e171
 #+END_SRC
+
+*** Installation Docker 				       :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+
+Pour l'utilisation sous Docker, il vous faudra en plus configurer les propriétés suivantes :
+- hosts = ["elasticsearch"]
+- user = "elastic"
+- password = "changeme"
 
 
 ** Query time !
