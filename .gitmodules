@@ -1,0 +1,3 @@
+[submodule "stack-docker"]
+	path = stack-docker
+	url = https://github.com/elastic/stack-docker.git

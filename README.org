@@ -5,7 +5,7 @@ de plus en plus. On a pu le voir ces dernières années avec les
 enchaînements de crises sanitaires autour de la vache folle, la grippe
 aviaire, les OGMs, les allergènes et plus récemment la découverte de
 produits potentiellement cancérogènes comme le dioxyde de
-titane. [[https://fr.openfoodfacts.org/data][OpenFoodacts]] est une
+titane. [[https://fr.openfoodfacts.org/data][OpenFoodFacts]] est une
 base de données recensant plusieurs milliers d'aliments (pâtes,
 biscuits, épicerie, bonbons...) disponibles dans le commerce. Cette
 base est libre d'accès sous licence Open Database License et contient

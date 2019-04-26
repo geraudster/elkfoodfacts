@@ -57,7 +57,7 @@ pour tout le monde.
 [[./images/dashboard.png]]
 
 * Les outils
-** ELK
+** Elastic Stack
 
 *** Elasticsearch 						      :BMCOL:
 :PROPERTIES:
@@ -124,15 +124,17 @@ http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
 :BEAMER_env: alertblock
 :END:
 
-+ Une JVM 1.8 minimum doit être installée
-+ La variable =JAVA_HOME= doit être définie
++ Docker et docker-compose
 
-*** Version 5.x
+*** Version 7.x
 
-1. Récupérer les archives et les décompresser
-2. Lancer elasticsearch[.bat], kibana[.bat]
-3. Ouvrir http://localhost:5601
-4. Aller dans _Dev Tools_
+1. Récupérer les submodules: =git submodule init= et =git submodule update=
+2. Initialiser les credentials: =docker-compose -f setup.yml up=
+3. Penser à noter le mot de passe pour l'utilisateur =elastic=
+4. Lancer elasticsearch: =docker-compose up -d elasticsearch=
+5. Lancer kibana: =docker-compose up -d kibana=
+6. Ouvrir http://localhost:5601
+7. Aller dans _Dev Tools_
 
 ** Jouons avec Elasticsearch
 
