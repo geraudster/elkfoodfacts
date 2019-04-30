@@ -1,7 +1,7 @@
 #+TITLE:     Elastic, dis-moi ce qu'il y a dans mon assiette
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-#+DATE:      09/05/2017
+#+DATE:      09/05/2019
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
@@ -109,12 +109,12 @@ pour tout le monde.
 
 #+BEGIN_SRC js
 <GET|POST|PUT|DELETE>
-http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
+http[s]://<hostname>:<port>/[<index>]/[<type>]/[_<keyword>]]
 
 #+END_SRC
 
 + index
-+ type
++ type: _doc
 + _keyword : _search, _mapping,...
 
 ** Installation
@@ -145,7 +145,7 @@ http[s]://<hostname>:<port>/[<index>/[<type>]/[_<keyword>]]
 :END:
 
 #+BEGIN_SRC json
-POST /store/food
+POST /store/_doc
 {
   "name": "Chips au vinaigre",
   "category" : "apero",
@@ -154,7 +154,7 @@ POST /store/food
   "proteines" : 5
 }
 
-POST /store/food
+POST /store/_doc
 {
   "name": "Langues piquantes",
   "category" : "confiserie",
@@ -171,7 +171,7 @@ POST /store/food
 :END:
 
 #+BEGIN_SRC json
-GET /store/food/_search
+GET /store/_search
 
 GET /store/_search?q=langues
 

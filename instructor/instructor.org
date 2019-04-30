@@ -1,0 +1,19 @@
+* Création du jeu de données
+
+#+BEGIN_SRC bash
+wget https://fr.openfoodfacts.org/data/fr.openfoodfacts.org.products.csv -P data
+head -1 data/fr.openfoodfacts.org.products.csv > data/sample-fr.openfoodfacts.org.products.csv
+shuf -n 100 data/fr.openfoodfacts.org.products.csv >> data/sample-fr.openfoodfacts.org.products.csv
+#+END_SRC
+
+* Extraction des en-têtes
+
+#+BEGIN_SRC bash
+head -1 data/sample-fr.openfoodfacts.org.products.csv  | tr '\t' '\n' | xargs printf '"%s",'
+#+END_SRC
+
+Extraction des champs à splitter:
+#+BEGIN_SRC bash
+head -1 data/sample-fr.openfoodfacts.org.products.csv  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf 'split => { "%s" => "," }\n'
+#+END_SRC
+
