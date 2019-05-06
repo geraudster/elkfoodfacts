@@ -190,7 +190,7 @@ GET /store/_search
 *** Lancement
 
 #+BEGIN_SRC sh
-logstash -f logstash.conf
+docker-compose run -v ${PWD}/..:/foodfacts logstash -f /foodfacts/ingest.conf
 #+END_SRC
 
 *** Fichier conf
@@ -223,7 +223,14 @@ logstash -f food.conf
 ** Ajout de la sortie Elasticsearch
 1. Ajouter l'output suivant
   #+BEGIN_SRC ruby
-	elasticsearch {	}
+    elasticsearch {
+        hosts => [ "elasticsearch" ]
+        index => "openfoodfacts"
+        user     => "elastic"
+        password => "${ELASTIC_PASSWORD}"  # read password from logstash.keystore
+        ssl => true
+        cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
+    }
   #+END_SRC
 2. Relancer logstash
 
@@ -236,17 +243,6 @@ logstash -f food.conf
 GET /logstash-*/_search
 GET /logstash-*/_search?q=e171
 #+END_SRC
-
-*** Installation Docker 				       :B_alertblock:
-:PROPERTIES:
-:BEAMER_env: alertblock
-:END:
-
-Pour l'utilisation sous Docker, il vous faudra en plus configurer les propriétés suivantes :
-- hosts = ["elasticsearch"]
-- user = "elastic"
-- password = "changeme"
-
 
 ** Query time !
 

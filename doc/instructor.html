@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-30 mar. 14:47 -->
+<!-- 2019-05-06 lun. 14:09 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -246,13 +246,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga509316">1. Création du jeu de données</a></li>
-<li><a href="#orgfdad8ea">2. Extraction des en-têtes</a></li>
+<li><a href="#org7d4b16d">1. Création du jeu de données</a></li>
+<li><a href="#org969ab62">2. Extraction des en-têtes</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga509316" class="outline-2">
-<h2 id="orga509316"><span class="section-number-2">1</span> Création du jeu de données</h2>
+<div id="outline-container-org7d4b16d" class="outline-2">
+<h2 id="org7d4b16d"><span class="section-number-2">1</span> Création du jeu de données</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-bash">wget https://fr.openfoodfacts.org/data/fr.openfoodfacts.org.products.csv -P data
@@ -263,8 +263,8 @@ shuf -n 100 data/fr.openfoodfacts.org.products.csv &gt;&gt; data/sample-fr.openf
 </div>
 </div>
 
-<div id="outline-container-orgfdad8ea" class="outline-2">
-<h2 id="orgfdad8ea"><span class="section-number-2">2</span> Extraction des en-têtes</h2>
+<div id="outline-container-org969ab62" class="outline-2">
+<h2 id="org969ab62"><span class="section-number-2">2</span> Extraction des en-têtes</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-bash">head -1 data/sample-fr.openfoodfacts.org.products.csv  | tr <span style="font-style: italic;">'\t'</span> <span style="font-style: italic;">'\n'</span> | xargs printf <span style="font-style: italic;">'"%s",'</span>
@@ -283,7 +283,7 @@ Extraction des champs à splitter:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Geraud Dugé de Bernonville</p>
-<p class="date">Created: 2019-04-30 mar. 14:47</p>
+<p class="date">Created: 2019-05-06 lun. 14:09</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
