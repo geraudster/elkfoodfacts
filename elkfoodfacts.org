@@ -240,15 +240,15 @@ logstash -f food.conf
 :END:
 
 #+BEGIN_SRC js
-GET /logstash-*/_search
-GET /logstash-*/_search?q=e171
+GET /openfoodfacts/_search
+GET /openfoodfacts/_search?q=e171
 #+END_SRC
 
 ** Query time !
 
 Nombre de catégories:
 #+BEGIN_SRC js
-GET /logstash-*/_search
+GET /openfoodfacts/_search
 {
   "aggs": {
     "categories_count": {
@@ -265,7 +265,7 @@ GET /logstash-*/_search
 
 Répartition des additifs par catégories:
 #+BEGIN_SRC js
-GET /logstash-*/_search
+GET /openfoodfacts/_search
 {
   "aggs": {
     "par_categorie": {
@@ -282,6 +282,37 @@ GET /logstash-*/_search
       }
     }
   }
+}
+#+END_SRC
+
+** Problème de taille
+
+[[./images/index-management-1.png]]
+
+
+** Configuration du mapping
+
+#+BEGIN_SRC js
+DELETE openfoodfacts
+
+PUT /openfoodfacts
+{
+    "settings" : {
+        "number_of_shards": 3,
+        "number_of_replicas": 0
+    },
+    "mappings": {
+        "dynamic_templates": [
+            {
+                "strings": {
+                    "match_mapping_type": "string",
+                    "mapping": {
+                        "type": "keyword"
+                    }
+                }
+            }
+        ]
+    }
 }
 #+END_SRC
 
