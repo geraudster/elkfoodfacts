@@ -9,7 +9,7 @@
 
 *** Insertion de données
 #+BEGIN_SRC json
-POST /store/food
+POST /store/_doc
 {
   "name": "Chips au vinaigre",
   "category" : "apero",
@@ -18,7 +18,7 @@ POST /store/food
   "proteines" : 5
 }
 
-POST /store/food
+POST /store/_doc
 {
   "name": "Langues piquantes",
   "category" : "confiserie",
@@ -30,7 +30,7 @@ POST /store/food
 
 Voir le contenu:
 #+BEGIN_SRC
-GET /store/food/_search
+GET /store/_search
 #+END_SRC
 
 *** Requêtage

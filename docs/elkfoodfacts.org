@@ -128,13 +128,10 @@ http[s]://<hostname>:<port>/[<index>]/[<type>]/[_<keyword>]]
 
 *** Version 7.x
 
-1. Récupérer les submodules: =git submodule init= et =git submodule update=
-2. Initialiser les credentials: =docker-compose -f setup.yml up=
-3. Penser à noter le mot de passe pour l'utilisateur =elastic=
-4. Lancer elasticsearch: =docker-compose up -d elasticsearch=
-5. Lancer kibana: =docker-compose up -d kibana=
-6. Ouvrir http://localhost:5601
-7. Aller dans _Dev Tools_
+1. =cd elk-compose=
+2. Lancer la stack: =docker-compose up=
+3. Ouvrir http://localhost:5601
+3. Aller dans _Dev Tools_ (http://localhost:5601/app/kibana#/dev_tools/console)
 
 ** Jouons avec Elasticsearch
 
@@ -190,7 +187,7 @@ GET /store/_search
 *** Lancement
 
 #+BEGIN_SRC sh
-docker-compose run -v ${PWD}/..:/foodfacts logstash -f /foodfacts/ingest.conf
+docker-compose run logstash -f /pipeline/demo/ingest.conf
 #+END_SRC
 
 *** Fichier conf
@@ -204,35 +201,37 @@ output { ... }
 ** Jouons avec Logstash - Données de test
 
 1. Récupérer le fichier CSV =sample-fr.openfoodfacts.org.products.csv=
-2. Récupérer le fichier =food.conf=
-  #+INCLUDE: "student/food.conf" src ruby
-3. Lancer logstash
+2. Vérifier le fichier =file-input.conf= dans le répertoire pipelines/student
+  #+INCLUDE: "../pipelines/student/file-input.conf" src ruby
+3. Vérifier le fichier =debug-output.conf=
+  #+INCLUDE: "../pipelines/student/debug-output.conf" src ruby
+4. Lancer logstash
   #+BEGIN_SRC sh
-logstash -f food.conf
+docker-compose run logstash \
+       -f /pipelines/student/{file-input,debug-output}.conf
   #+END_SRC
-4. Copier le CSV d'exemple dans le répertoire data/openfoodfacts
 5. Patienter...
 
 ** Ajout du filtre CSV
 
-1. Ajouter le filter suivant (copier depuis =filter.conf=)
-  #+INCLUDE: "student/filter.conf" src ruby
+1. Vérifier le fichier =filter.conf= dans le répertoire pipelines/student
+  #+INCLUDE: "../pipelines/student/filter.conf" src ruby :lines "-10"
 2. Supprimer le fichier =since_db=
-3. Relancer logstash
+3. Lancer logstash
+  #+BEGIN_SRC sh
+docker-compose run logstash -w 1 \
+      -f '/pipelines/student/{file-input,debug-output,filter}.conf'
+  #+END_SRC
 
 ** Ajout de la sortie Elasticsearch
-1. Ajouter l'output suivant
-  #+BEGIN_SRC ruby
-    elasticsearch {
-        hosts => [ "elasticsearch" ]
-        index => "openfoodfacts"
-        user     => "elastic"
-        password => "${ELASTIC_PASSWORD}"  # read password from logstash.keystore
-        ssl => true
-        cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
-    }
+1. Vérifier le fichier =elastic-output.conf=
+  #+INCLUDE: "../pipelines/student/elastic-output.conf" src ruby
+2. Lancer logstash
+  #+BEGIN_SRC sh
+docker-compose run logstash -w 1 \
+      -f '/pipelines/student/{file-input,filter,elastic-output}.conf'
   #+END_SRC
-2. Relancer logstash
+
 
 *** Dans Kibana > Dev Tools 				      :B_block:
 :PROPERTIES:
@@ -253,7 +252,7 @@ GET /openfoodfacts/_search
   "aggs": {
     "categories_count": {
       "value_count": {
-        "field": "main_category.keyword"
+        "field": "main_category"
       }
     }
   }
@@ -270,13 +269,13 @@ GET /openfoodfacts/_search
   "aggs": {
     "par_categorie": {
       "terms": {
-        "field": "main_category_fr.keyword",
+        "field": "main_category_fr",
         "size": 10
       },
       "aggs": {
         "par_additif": {
           "terms": {
-            "field": "additives_fr.keyword"
+            "field": "additives_fr"
           }
         }
       }
@@ -328,7 +327,7 @@ PUT /openfoodfacts
 2. Sélectionner *Tag Cloud*
 3. Configurer un bucket *Tags*
    + Aggregation = Terms
-   + Field = =main_category_fr.keyword=
+   + Field = =main_category_fr=
    + Size = 50
    + Custom Label = Catégories principales
 4. Sauvegarder le widget
@@ -338,7 +337,7 @@ PUT /openfoodfacts
 1. Sélectionner *Table*
 2. Créer un bucket *Split Rows*
    + Aggregation = Terms
-   + Field = =brands.keyword=
+   + Field = =brands=
    + Size = 20
    + Custom Label = Marques
 3. Sauvegarder
@@ -348,7 +347,7 @@ PUT /openfoodfacts
 1. Sélectionner *Pie chart*
 2. Créer un bucket *Split Slices*
    + Aggregation = Terms
-   + Field = =allergens.keyword=
+   + Field = =allergens=
    + Size = 10
    + Custom Label = Allergènes
    + Options > Sélectionner *Donut*
@@ -371,8 +370,7 @@ On veut ça:
 * Produit final
 ** Chargeons toute la base !
 + L'objectif est de voir le résultat avec l'ensemble des données
-+ Pour éviter les doublons, on supprime l'index =logstash-*=
-+ Supprimer l'output =stdout=
++ Pour éviter les doublons, on supprime l'index =openfoodfacts=
 + *Décompresser* ensuite le fichier =fr.openfoodfacts.org.products.csv.gz=
  dans votre répertoire =data=
 + Lancer logstash
