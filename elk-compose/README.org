@@ -1,0 +1,34 @@
+* Docker Compose for ELK stack
+
+** Usage
+
+Clone this repository, _cd_ into it, then:
+
+#+BEGIN_SRC bash
+docker-compose up
+#+END_SRC
+
+Try to open kibana UI: http://localhost:5601 (default credentials: elastic/changeme)
+
+For logstash, put conf files in _pipeline_ directory, they will be
+executed in alphabetical order. You can also put data files in _data_ directory.
+Then you can stop/start logstash:
+
+#+BEGIN_SRC bash
+docker-compose stop logstash
+docker-compose up logstash
+#+END_SRC
+
+** Troubleshoot
+
+You may fall on the following error when starting ElasticSearch:
+
+#+BEGIN_SRC bash
+max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+#+END_SRC
+
+Just set the parameter accordingly: 
+
+#+BEGIN_SRC bash
+sudo sysctl -w vm.max_map_count=262144
+#+END_SRC

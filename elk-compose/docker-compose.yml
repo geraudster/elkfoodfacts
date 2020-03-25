@@ -1,0 +1,82 @@
+version: '3'
+services:
+   logstash:
+     image: docker.elastic.co/logstash/logstash:7.3.2
+     environment:
+       - PATH_CONFIG=/usr/share/logstash/pipeline/*.conf
+       - LOGSTASH_CONF=/usr/share/logstash/pipeline
+       - CONSUMER_KEY
+       - CONSUMER_SECRET
+       - OAUTH_TOKEN
+       - OAUTH_TOKEN_SECRET
+     volumes:
+       - $PWD/pipeline/:/usr/share/logstash/pipeline/
+       - $PWD/data/:/data/
+     links:
+       - elasticsearch
+     depends_on:
+       - elasticsearch
+     networks: ['stack']
+     labels:
+       - traefik.enable=false
+
+   elasticsearch:
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+     ports:
+       - 9200:9200
+     volumes:
+       - data-volume:/usr/share/elasticsearch/data
+     networks: ['stack']
+     environment:
+       - bootstrap.memory_lock=true
+       - discovery.type=single-node
+       - cluster.routing.allocation.disk.threshold_enabled=false
+     labels:
+       - traefik.enable=false
+      
+   kibana:
+     image: docker.elastic.co/kibana/kibana:7.3.2
+     links:
+       - elasticsearch
+     depends_on:
+       - elasticsearch
+     ports:
+       - 5601:5601
+     networks: ['stack']
+     labels:
+       - traefik.backend=kibana
+       - traefik.frontend.rule=Host:k.${ELK_DOMAIN}
+       - traefik.passHostHeader=true
+       - traefik.enable=true
+
+  r:
+    image: traefik #The official Traefik docker image
+    command: >
+      --api --docker --logLevel=DEBUG \
+      --defaultentrypoints=http,https \
+      --acme \
+      --acme.storage=/etc/traefik/acme/acme.json \
+      --acme.entryPoint=https \
+      --acme.httpChallenge.entryPoint=http \
+      --acme.email=${ACME_EMAIL} \
+      --acme.OnHostRule=true \
+      --acme.onDemand=false \
+      --docker.domain=${ELK_DOMAIN}
+      
+    ports:
+      - "80:80"     #The HTTP port
+#      - "8080:8080" #The Web UI (enabled by --api)
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
+      - acme-storage:/etc/traefik/acme
+      - ${PWD}/.htpasswd:/etc/traefik/.htpasswd
+      - ${PWD}/traefik.toml:/etc/traefik/traefik.toml
+
+volumes:
+  data-volume:
+    driver: local
+  acme-storage: {}
+
+networks:
+  stack: {}

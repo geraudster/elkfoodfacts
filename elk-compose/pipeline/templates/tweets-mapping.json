@@ -1,0 +1,44 @@
+{
+    "template" : "tweets-*",
+    "settings" : {
+	"index.refresh_interval" : "5s",
+	"number_of_shards": 5,
+	"number_of_replicas": 0,
+	"index.mapping.total_fields.limit": "10000"
+    },
+    "mappings": {
+	"_default_": {
+	    "properties": {
+		"@timestamp": {
+		    "type": "date"
+		},
+		"@version": {
+		    "type": "keyword"
+		},
+		"text": {
+		    "type": "text",
+		    "fields": {
+			"en": {
+			    "type": "text",
+			    "analyzer": "english"
+			}
+		    }
+		}
+	    },
+	    "dynamic_templates": [
+		{
+		    "string_template": {
+			"match": "*",
+			"match_mapping_type": "string",
+			"mapping": {
+			    "type": "keyword"
+			}
+		    }
+		}
+	    ]
+	}
+    },
+    "aliases": {
+	"tweets": {}
+    }
+}

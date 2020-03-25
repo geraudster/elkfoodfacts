@@ -1,3 +1,0 @@
-[submodule "elk-compose"]
-	path = elk-compose
-	url = https://github.com/geraudster/elk-compose.git
