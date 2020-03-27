@@ -1,7 +1,6 @@
 *~
 *.tex
 *.pdf
-!doc/*.pdf
+!docs/*.pdf
 README.html
 .credentials
-data/
