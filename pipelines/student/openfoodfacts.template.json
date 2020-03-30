@@ -1,0 +1,101 @@
+{
+    "template" : "openfoodfacts*",
+    "settings" : {
+	      "index.refresh_interval" : "15s",
+	      "number_of_shards": 1,
+	      "number_of_replicas": 0
+    },
+    "mappings": {
+	      "properties": {
+		        "@timestamp": {
+		            "type": "date"
+		        },
+		        "@version": {
+		            "type": "keyword"
+		        },
+		        "text": {
+		            "type": "text",
+		            "fields":
+                {
+			              "fr": {
+			                  "type": "text",
+			                  "analyzer": "french"
+			              },
+                    "en": {
+			                  "type": "text",
+			                  "analyzer": "english"
+			              }
+		            }
+		        }
+	      },
+	      "dynamic_templates": [
+		        {
+                "unixtimestamp_template": {
+                    "match": "*_t",
+                    "mapping": {
+                        "type": "date",
+                        "format": "epoch_second"
+                    }
+                }
+            },
+            {
+                "datetime_template": {
+                    "match": "*_datetime",
+                    "mapping": {
+                        "type": "date",
+                        "format": "strict_date_time_no_millis"
+                    }
+                }
+            },
+            {
+                "tags_template": {
+                    "match": "*_tags",
+                    "mapping": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            {
+                "fr_template": {
+                    "match": "*_fr",
+                    "mapping": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            {
+                "en_template": {
+                    "match": "*_en",
+                    "mapping": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            {
+                "amount_100g_template": {
+                    "match": "*_100g",
+                    "mapping": {
+                        "type": "integer"
+                    }
+                }
+            },
+            {
+                "amount_serving_template": {
+                    "match": "*_serving",
+                    "mapping": {
+                        "type": "integer"
+                    }
+                }
+            },
+            {
+                "string_template": {
+			              "match": "*",
+			              "match_mapping_type": "string",
+			              "mapping": {
+			                  "type": "keyword"
+			              }
+		            }
+		        }
+	      ]
+    }
+}

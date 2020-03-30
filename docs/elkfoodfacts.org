@@ -1,7 +1,7 @@
-#+TITLE:     Elastic, dis-moi ce qu'il y a dans mon assiette
+#+TITLE:     Elastic & food fact checking
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-#+DATE:      09/05/2019
+#+DATE:      30/03/2020
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
