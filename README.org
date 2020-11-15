@@ -1,4 +1,4 @@
-* Elastic, dis-moi ce qu'il y a dans mon assiette
+* Elastic & food fact checking
 
 La qualité sanitaire de nos aliments est un sujet qui nous préoccupe
 de plus en plus. On a pu le voir ces dernières années avec les
