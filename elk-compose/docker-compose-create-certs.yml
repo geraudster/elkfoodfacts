@@ -1,0 +1,63 @@
+version: '3'
+services:
+   create_certs:
+     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
+     container_name: create_certs
+     command: >
+       bash -c '
+        yum install -y -q -e 0 unzip;
+        if [[ ! -f /certs/bundle.zip ]]; then
+          bin/elasticsearch-certutil cert --silent --pem --in /tmp/instances.yml -out /certs/bundle.zip;
+          unzip /certs/bundle.zip -d /certs;
+        fi;
+        chown -R 1000:0 /certs
+        > /tmp/.kibana_creds.env
+        '
+     working_dir: /usr/share/elasticsearch
+     volumes:
+       - certs:/certs
+#       - certs:$CERTS_DIR
+       - .:/tmp
+     networks:
+       - stack
+#     environment:
+#       - xpack.security.http.ssl.enabled=true 
+#       - xpack.security.http.ssl.key=$CERTS_DIR/create_certs/create_certs.key
+#       - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+#       - xpack.security.http.ssl.certificate=$CERTS_DIR/create_certs/create_certs.crt
+#
+
+   init_passwords:
+     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
+     container_name: init_passwords
+     command: >
+       bash -c "
+        bin/elasticsearch-setup-passwords auto --batch --url https://elasticsearch:9200 | grep PASSWORD  | sed -E 's/PASSWORD ([^ ]+) = (.*)/\U\1\E_PASSWORD=\2/' > /tmp/.all_creds.env
+        grep KIBANA_SYSTEM_PASSWORD /tmp/.all_creds.env | sed -E 's/KIBANA_SYSTEM_PASSWORD=/ELASTICSEARCH_PASSWORD=/' > /tmp/.kibana_creds.env
+        chown 1000:0 /tmp/.*_creds.env
+        cat /tmp/.all_creds.env
+        "
+     working_dir: /usr/share/elasticsearch
+     volumes:
+       - certs:$CERTS_DIR
+       - es-config:/usr/share/elasticsearch/config
+       - .:/tmp
+     networks:
+       - stack
+     environment:
+       - xpack.security.http.ssl.enabled=true
+       - xpack.security.http.ssl.key=$CERTS_DIR/create_certs/create_certs.key
+       - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+       - xpack.security.http.ssl.certificate=$CERTS_DIR/create_certs/create_certs.crt
+
+
+volumes:
+  data-volume:
+    driver: local
+  certs:
+    driver: local
+  es-config:
+    driver: local
+
+networks:
+  stack: {}

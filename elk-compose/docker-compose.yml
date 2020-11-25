@@ -1,10 +1,7 @@
 version: '3'
 services:
    logstash:
-     image: docker.elastic.co/logstash/logstash:7.6.1
-#     environment:
-#       - PATH_CONFIG=/usr/share/logstash/pipeline/*.conf
-#       - LOGSTASH_CONF=/usr/share/logstash/pipeline
+     image: docker.elastic.co/logstash/logstash:${VERSION}
      volumes:
        - $PWD/../pipelines:/pipelines
        - $PWD/../data/:/data
@@ -14,27 +11,58 @@ services:
      command: echo "Should be started manually"
 
    elasticsearch:
-     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+     image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
      ports:
        - 9200:9200
      volumes:
        - data-volume:/usr/share/elasticsearch/data
+       - es-config:/usr/share/elasticsearch/config
+       - certs:$CERTS_DIR
      networks: ['stack']
      environment:
        - bootstrap.memory_lock=true
        - discovery.type=single-node
        - cluster.routing.allocation.disk.threshold_enabled=false
-      
+       - xpack.security.enabled=true
+       - xpack.security.http.ssl.enabled=true 
+       - xpack.security.http.ssl.key=$CERTS_DIR/elasticsearch/elasticsearch.key
+       - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+       - xpack.security.http.ssl.certificate=$CERTS_DIR/elasticsearch/elasticsearch.crt
+       - xpack.security.transport.ssl.enabled=true 
+       - xpack.security.transport.ssl.verification_mode=certificate 
+       - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+       - xpack.security.transport.ssl.certificate=$CERTS_DIR/elasticsearch/elasticsearch.crt
+       - xpack.security.transport.ssl.key=$CERTS_DIR/elasticsearch/elasticsearch.key
+
    kibana:
-     image: docker.elastic.co/kibana/kibana:7.6.1
+     image: docker.elastic.co/kibana/kibana:${VERSION}
      links:
        - elasticsearch
      ports:
        - 5601:5601
+     volumes:
+       - certs:$CERTS_DIR
      networks: ['stack']
+     environment:
+       xpack.security.enabled: "true"
+       SERVERNAME: localhost
+       ELASTICSEARCH_URL: https://elasticsearch:9200
+       ELASTICSEARCH_HOSTS: https://elasticsearch:9200
+       ELASTICSEARCH_USERNAME: kibana_system
+#       ELASTICSEARCH_PASSWORD: ${KIBANA_SYSTEM}
+       ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES: $CERTS_DIR/ca/ca.crt
+       SERVER_SSL_ENABLED: "true"
+       SERVER_SSL_KEY: $CERTS_DIR/kibana/kibana.key
+       SERVER_SSL_CERTIFICATE: $CERTS_DIR/kibana/kibana.crt
+     env_file:
+       - .kibana_creds.env
 
 volumes:
   data-volume:
+    driver: local
+  certs:
+    driver: local
+  es-config:
     driver: local
 
 networks:

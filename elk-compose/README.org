@@ -1,14 +1,38 @@
-* Docker Compose for ELK stack
+* Docker Compose for Elastic stack
+
+** Installation
+
+For the first time, clone this repository, _cd_ into it, then:
+
+#+BEGIN_SRC bash
+# Generate certificates
+docker-compose -f docker-compose-create-certs.yml run --rm create_certs
+
+# Start elasticsearch
+docker-compose up -d elasticsearch
+
+# Generate passwords
+docker-compose -f docker-compose-create-certs.yml run --rm init_passwords
+
+# Start kibana
+docker-compose up -d kibana
+#+END_SRC
+
+Try to open kibana UI: https://localhost:5601 (default credentials: elastic/ELASTIC_PASSWORD)
 
 ** Usage
 
-Clone this repository, _cd_ into it, then:
+After installing, use the following command to start:
 
 #+BEGIN_SRC bash
-docker-compose up
+docker-compose up -d
 #+END_SRC
 
-Try to open kibana UI: http://localhost:5601 (default credentials: elastic/changeme)
+Use the following command to stop:
+
+#+BEGIN_SRC bash
+docker-compose stop
+#+END_SRC
 
 For logstash, put conf files in _pipeline_ directory, they will be
 executed in alphabetical order. You can also put data files in _data_ directory.
