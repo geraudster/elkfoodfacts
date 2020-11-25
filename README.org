@@ -21,6 +21,66 @@ leurs dashboards afin par exemple de recenser les catégories de
 produits les plus allergènes, ou lister les produits dont le E171
 entre dans la composition...
 
+* Utilisation
 
+** Pré-requis
 
+- docker
+- docker-compose
 
+** Installation
+
+La première fois, clone ce repository, se positionner dedans puis:
+
+#+BEGIN_SRC bash
+# Generate certificates
+docker-compose -f docker-compose-create-certs.yml run --rm create_certs
+
+# Start elasticsearch
+docker-compose up -d elasticsearch
+
+# Generate passwords
+docker-compose -f docker-compose-create-certs.yml run --rm init_passwords
+
+# Start kibana
+docker-compose up -d kibana
+#+END_SRC
+
+Accéder à Kibana: https://localhost:5601 (login/mdp: elastic/ELASTIC_PASSWORD)
+
+** Utilisation
+
+Après l'installation:
+
+#+BEGIN_SRC bash
+docker-compose up -d
+#+END_SRC
+
+Pour arrêter:
+
+#+BEGIN_SRC bash
+docker-compose stop
+#+END_SRC
+
+Pour lancer logstashm positionner les configurations de pipeline dans
+le répertoire _pipeline_. Placer les données dans le répertoire _data_.
+Démarrer ensuite logstash:
+
+#+BEGIN_SRC bash
+docker-compose stop logstash
+docker-compose up logstash
+#+END_SRC
+
+** Troubleshoot
+
+You may fall on the following error when starting ElasticSearch:
+
+#+BEGIN_SRC bash
+max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+#+END_SRC
+
+Just set the parameter accordingly: 
+
+#+BEGIN_SRC bash
+sudo sysctl -w vm.max_map_count=262144
+#+END_SRC

@@ -3,8 +3,9 @@ services:
    logstash:
      image: docker.elastic.co/logstash/logstash:${VERSION}
      volumes:
-       - $PWD/../pipelines:/pipelines
-       - $PWD/../data/:/data
+       - $PWD/pipelines:/pipelines
+       - $PWD/data/:/data
+       - certs:$CERTS_DIR
      depends_on:
        - elasticsearch
      networks: ['stack']
@@ -55,7 +56,7 @@ services:
        SERVER_SSL_KEY: $CERTS_DIR/kibana/kibana.key
        SERVER_SSL_CERTIFICATE: $CERTS_DIR/kibana/kibana.crt
      env_file:
-       - .kibana_creds.env
+       - elk-compose/.kibana_creds.env
 
 volumes:
   data-volume:

@@ -17,7 +17,7 @@ services:
      volumes:
        - certs:/certs
 #       - certs:$CERTS_DIR
-       - .:/tmp
+       - ./elk-compose:/tmp
      networks:
        - stack
 #     environment:
@@ -41,7 +41,7 @@ services:
      volumes:
        - certs:$CERTS_DIR
        - es-config:/usr/share/elasticsearch/config
-       - .:/tmp
+       - ./elk-compose:/tmp
      networks:
        - stack
      environment:
