@@ -30,13 +30,7 @@ services:
    init_passwords:
      image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
      container_name: init_passwords
-     command: >
-       bash -c "
-        bin/elasticsearch-setup-passwords auto --batch --url https://elasticsearch:9200 | grep PASSWORD  | sed -E 's/PASSWORD ([^ ]+) = (.*)/\U\1\E_PASSWORD=\2/' > /tmp/.all_creds.env
-        grep KIBANA_SYSTEM_PASSWORD /tmp/.all_creds.env | sed -E 's/KIBANA_SYSTEM_PASSWORD=/ELASTICSEARCH_PASSWORD=/' > /tmp/.kibana_creds.env
-        chown 1000:0 /tmp/.*_creds.env
-        cat /tmp/.all_creds.env
-        "
+     command: /tmp/init_users_and_passwords.sh
      working_dir: /usr/share/elasticsearch
      volumes:
        - certs:$CERTS_DIR

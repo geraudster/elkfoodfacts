@@ -2,20 +2,23 @@
 
 Depuis le répertoire cloné:
 #+BEGIN_SRC bash
-wget https://fr.openfoodfacts.org/data/fr.openfoodfacts.org.products.csv -P data
-head -1 data/fr.openfoodfacts.org.products.csv > data/sample-fr.openfoodfacts.org.products.csv
-shuf -n 100 data/fr.openfoodfacts.org.products.csv >> data/sample-fr.openfoodfacts.org.products.csv
+wget --compression=gzip https://fr.openfoodfacts.org/data/fr.openfoodfacts.org.products.csv -P data
+gzip data/fr.openfoodfacts.org.products.csv
+
+# Fichier de test
+< data/fr.openfoodfacts.org.products.csv.gz gzip -cd | head -1 > data/sample-fr.openfoodfacts.org.products.csv
+< data/fr.openfoodfacts.org.products.csv.gz gzip -cd | tail +2 | head -500000 | shuf -n 100 - >> data/sample-fr.openfoodfacts.org.products.csv
 #+END_SRC
 
 * Extraction des en-têtes
 
 Depuis le répertoire cloné:
 #+BEGIN_SRC bash
-head -1 data/sample-fr.openfoodfacts.org.products.csv  | tr '\t' '\n' | xargs printf '"%s",'
+< data/sample-fr.openfoodfacts.org.products.csv head -1 | tr '\t' '\n' | xargs printf '"%s",' > data/header.txt
 #+END_SRC
 
 Extraction des champs à splitter:
 #+BEGIN_SRC bash
-head -1 data/sample-fr.openfoodfacts.org.products.csv  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf 'split => { "%s" => "," }\n'
+< data/sample-fr.openfoodfacts.org.products.csv head -1  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf 'split => { "%s" => "," }\n' > data/split_column.conf
 #+END_SRC
 

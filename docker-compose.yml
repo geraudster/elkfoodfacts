@@ -10,6 +10,11 @@ services:
        - elasticsearch
      networks: ['stack']
      command: echo "Should be started manually"
+     environment:
+       - xpack.monitoring.enabled=false
+       - CERTS_DIR
+     env_file:
+       - elk-compose/.all_creds.env
 
    elasticsearch:
      image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}

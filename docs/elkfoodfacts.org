@@ -208,7 +208,7 @@ output { ... }
 4. Lancer logstash
   #+BEGIN_SRC sh
 docker-compose run logstash \
-       -f /pipelines/student/{file-input,debug-output}.conf
+       -f '/pipelines/student/{file-input,debug-output}.conf'
   #+END_SRC
 5. Patienter...
 
