@@ -240,7 +240,7 @@ docker-compose run logstash -w 1 \
 
 #+BEGIN_SRC js
 GET /openfoodfacts/_search
-GET /openfoodfacts/_search?q=e171
+GET /openfoodfacts/_search?q=Snacks
 #+END_SRC
 
 ** Query time !
@@ -371,9 +371,11 @@ On veut ça:
 ** Chargeons toute la base !
 + L'objectif est de voir le résultat avec l'ensemble des données
 + Pour éviter les doublons, on supprime l'index =openfoodfacts=
-+ *Décompresser* ensuite le fichier =fr.openfoodfacts.org.products.csv.gz=
- dans votre répertoire =data=
-+ Lancer logstash
++ Lancer logstash (attention, utiliser _file-input-full_)
+  #+BEGIN_SRC sh
+docker-compose run --rm logstash -w 1 \
+      -f '/pipelines/student/{file-input-full,filter,elastic-output}.conf'
+  #+END_SRC
 
 * Conclusion
 
@@ -427,6 +429,7 @@ Questions
 *** Col3 							      :BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.3
+    :BEAMER_opt: 30
     :END:
 
 #+DESCRIPTION: 
@@ -440,10 +443,9 @@ Questions
 #+LINK_UP:   
 #+LINK_HOME:
 #+startup: beamer
-#+LaTeX_CLASS: beamer
-#+LaTeX_CLASS_OPTIONS: [bigger]
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=1610,t]
 #+BEAMER_FRAME_LEVEL: 2
-#+LaTeX_CLASS_OPTIONS: [t]
 #+latex_header: \mode<beamer>{\usetheme{CambridgeUS}}
 #+LATEX_HEADER: \RequirePackage{fancyvrb}
 #+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
