@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 <head>
-<!-- 2020-11-27 ven. 14:26 -->
+<!-- 2020-12-10 jeu. 19:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Elastic &amp; food fact checking</title>
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: auto;
+    overflow: visible;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -247,62 +247,62 @@ for the JavaScript code in this tag.
 <h2>Table des matières</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge871bf6">1. Contexte</a>
+<li><a href="#org062f8bd">1. Contexte</a>
 <ul>
-<li><a href="#org5f5b09b">1.1. Qualité des aliments &amp; sécurité sanitaire</a></li>
-<li><a href="#orgeb7fc3c">1.2. Mais surtout&#x2026; Y a t'il du E171 dans la bière ?</a></li>
-<li><a href="#orgc0cfcad">1.3. Open Food Facts</a></li>
-<li><a href="#orgaaf73c5">1.4. Open Food Facts - Mobile</a></li>
-<li><a href="#org241ddaa">1.5. Ce qu'on aimerait avoir</a></li>
+<li><a href="#org62c26ff">1.1. Qualité des aliments &amp; sécurité sanitaire</a></li>
+<li><a href="#orgf678adf">1.2. Mais surtout&#x2026; Y a t'il du E171 dans la bière ?</a></li>
+<li><a href="#orgbd1e419">1.3. Open Food Facts</a></li>
+<li><a href="#org060e744">1.4. Open Food Facts - Mobile</a></li>
+<li><a href="#org272eaea">1.5. Ce qu'on aimerait avoir</a></li>
 </ul>
 </li>
-<li><a href="#orge557d4a">2. Les outils</a>
+<li><a href="#orge94ecb9">2. Les outils</a>
 <ul>
-<li><a href="#orge3d9f76">2.1. Elastic Stack</a></li>
+<li><a href="#org23cab24">2.1. Elastic Stack</a></li>
 </ul>
 </li>
-<li><a href="#org2e7d4f4">3. Entraînement</a>
+<li><a href="#org64d3955">3. Entraînement</a>
 <ul>
-<li><a href="#orgf1d4afe">3.1. Topo Elasticsearch</a></li>
-<li><a href="#org74cb331">3.2. Installation</a></li>
-<li><a href="#orgac62414">3.3. Jouons avec Elasticsearch</a></li>
-<li><a href="#org121c412">3.4. Topo Logstash</a></li>
-<li><a href="#org29c4682">3.5. Jouons avec Logstash - Données de test</a></li>
-<li><a href="#org51e740c">3.6. Ajout du filtre CSV</a></li>
-<li><a href="#orga87464f">3.7. Ajout de la sortie Elasticsearch</a></li>
-<li><a href="#org795002f">3.8. Query time !</a></li>
-<li><a href="#org65c776e">3.9. Query time !</a></li>
-<li><a href="#org6f582a3">3.10. Problème de taille</a></li>
-<li><a href="#orgb6d38ef">3.11. Configuration du mapping</a></li>
-<li><a href="#org8bbe398">3.12. Jouons avec Kibana</a></li>
-<li><a href="#org14cc707">3.13. Kibana - Suite</a></li>
-<li><a href="#org23c96ab">3.14. Kibana - Mmmmm Donut</a></li>
-<li><a href="#org7319c1b">3.15. Kibana - Fin (?)</a></li>
-<li><a href="#orgf1a77f0">3.16. Dashboard</a></li>
+<li><a href="#orgf8a97f8">3.1. Topo Elasticsearch</a></li>
+<li><a href="#org219696b">3.2. Installation</a></li>
+<li><a href="#org8640a50">3.3. Jouons avec Elasticsearch</a></li>
+<li><a href="#orgbc791ae">3.4. Topo Logstash</a></li>
+<li><a href="#org536337f">3.5. Jouons avec Logstash - Données de test</a></li>
+<li><a href="#org73c42de">3.6. Ajout du filtre CSV</a></li>
+<li><a href="#org731c076">3.7. Ajout de la sortie Elasticsearch</a></li>
+<li><a href="#org93adfa5">3.8. Query time !</a></li>
+<li><a href="#orged30f67">3.9. Query time !</a></li>
+<li><a href="#org8831052">3.10. Problème de taille</a></li>
+<li><a href="#orgf3d3088">3.11. Configuration du mapping</a></li>
+<li><a href="#org38d67a8">3.12. Jouons avec Kibana</a></li>
+<li><a href="#orgfa3e2b6">3.13. Kibana - Suite</a></li>
+<li><a href="#orgf28ef39">3.14. Kibana - Mmmmm Donut</a></li>
+<li><a href="#org779eaf9">3.15. Kibana - Fin (?)</a></li>
+<li><a href="#orgc2292f7">3.16. Dashboard</a></li>
 </ul>
 </li>
-<li><a href="#org14898ad">4. Produit final</a>
+<li><a href="#orgf09e386">4. Produit final</a>
 <ul>
-<li><a href="#org112325f">4.1. Chargeons toute la base !</a></li>
+<li><a href="#orgd09b549">4.1. Chargeons toute la base !</a></li>
 </ul>
 </li>
-<li><a href="#org46cafea">5. Conclusion</a>
+<li><a href="#org813b7e9">5. Conclusion</a>
 <ul>
-<li><a href="#orgf465dd8">5.1. Beer</a></li>
-<li><a href="#org5ff9fc1">5.2. Pour aller plus loin</a></li>
-<li><a href="#org8730016">5.3. Merci</a></li>
+<li><a href="#org9d7ebfe">5.1. Beer</a></li>
+<li><a href="#org4be2ba0">5.2. Pour aller plus loin</a></li>
+<li><a href="#org3b41eaf">5.3. Merci</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge871bf6" class="outline-2">
-<h2 id="orge871bf6"><span class="section-number-2">1</span> Contexte</h2>
+<div id="outline-container-org062f8bd" class="outline-2">
+<h2 id="org062f8bd"><span class="section-number-2">1</span> Contexte</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org5f5b09b" class="outline-3">
-<h3 id="org5f5b09b"><span class="section-number-3">1.1</span> Qualité des aliments &amp; sécurité sanitaire</h3>
+<div id="outline-container-org62c26ff" class="outline-3">
+<h3 id="org62c26ff"><span class="section-number-3">1.1</span> Qualité des aliments &amp; sécurité sanitaire</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>Vache folle</li>
@@ -316,7 +316,7 @@ autres substances chimiques&#x2026;)</li>
 </div>
 
 <ol class="org-ol">
-<li><a id="orgcc254fe"></a>Questions :&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span></span><br />
+<li><a id="org8cd8a4e"></a>Questions :&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span></span><br />
 <div class="outline-text-4" id="text-1-1-1">
 <ul class="org-ul">
 <li>Où trouve-t-on ces éléments ?</li>
@@ -328,8 +328,8 @@ autres substances chimiques&#x2026;)</li>
 </ol>
 </div>
 
-<div id="outline-container-orgeb7fc3c" class="outline-3">
-<h3 id="orgeb7fc3c"><span class="section-number-3">1.2</span> Mais surtout&#x2026; Y a t'il du E171 dans la bière ?</h3>
+<div id="outline-container-orgf678adf" class="outline-3">
+<h3 id="orgf678adf"><span class="section-number-3">1.2</span> Mais surtout&#x2026; Y a t'il du E171 dans la bière ?</h3>
 <div class="outline-text-3" id="text-1-2">
 
 <div class="figure">
@@ -339,8 +339,8 @@ autres substances chimiques&#x2026;)</li>
 </div>
 </div>
 
-<div id="outline-container-orgc0cfcad" class="outline-3">
-<h3 id="orgc0cfcad"><span class="section-number-3">1.3</span> Open Food Facts</h3>
+<div id="outline-container-orgbd1e419" class="outline-3">
+<h3 id="orgbd1e419"><span class="section-number-3">1.3</span> Open Food Facts</h3>
 <div class="outline-text-3" id="text-1-3">
 
 <div class="figure">
@@ -355,12 +355,12 @@ pour tout le monde.
 </div>
 </div>
 
-<div id="outline-container-orgaaf73c5" class="outline-3">
-<h3 id="orgaaf73c5"><span class="section-number-3">1.4</span> Open Food Facts - Mobile</h3>
+<div id="outline-container-org060e744" class="outline-3">
+<h3 id="org060e744"><span class="section-number-3">1.4</span> Open Food Facts - Mobile</h3>
 <div class="outline-text-3" id="text-1-4">
 </div>
 <ol class="org-ol">
-<li><a id="orgfe95fb8"></a>Android App&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org37620c8"></a>Android App&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-1-4-1">
 
 <div class="figure">
@@ -370,7 +370,7 @@ pour tout le monde.
 </div>
 </li>
 
-<li><a id="orgc265f54"></a>Additifs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="orgbe281b1"></a>Additifs&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-1-4-2">
 
 <div class="figure">
@@ -382,8 +382,8 @@ pour tout le monde.
 </ol>
 </div>
 
-<div id="outline-container-org241ddaa" class="outline-3">
-<h3 id="org241ddaa"><span class="section-number-3">1.5</span> Ce qu'on aimerait avoir</h3>
+<div id="outline-container-org272eaea" class="outline-3">
+<h3 id="org272eaea"><span class="section-number-3">1.5</span> Ce qu'on aimerait avoir</h3>
 <div class="outline-text-3" id="text-1-5">
 
 <div class="figure">
@@ -394,16 +394,16 @@ pour tout le monde.
 </div>
 </div>
 
-<div id="outline-container-orge557d4a" class="outline-2">
-<h2 id="orge557d4a"><span class="section-number-2">2</span> Les outils</h2>
+<div id="outline-container-orge94ecb9" class="outline-2">
+<h2 id="orge94ecb9"><span class="section-number-2">2</span> Les outils</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orge3d9f76" class="outline-3">
-<h3 id="orge3d9f76"><span class="section-number-3">2.1</span> Elastic Stack</h3>
+<div id="outline-container-org23cab24" class="outline-3">
+<h3 id="org23cab24"><span class="section-number-3">2.1</span> Elastic Stack</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
 <ol class="org-ol">
-<li><a id="org90537eb"></a>Elasticsearch&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="orgb4bccc4"></a>Elasticsearch&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-2-1-1">
 
 <div class="figure">
@@ -418,7 +418,7 @@ pour tout le monde.
 </div>
 </li>
 
-<li><a id="orga32a112"></a>Logstash&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org457b74d"></a>Logstash&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-2-1-2">
 
 <div class="figure">
@@ -432,7 +432,7 @@ pour tout le monde.
 </div>
 </li>
 
-<li><a id="org50fdfb2"></a>Kibana&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org644816d"></a>Kibana&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-2-1-3">
 
 <div class="figure">
@@ -449,35 +449,35 @@ pour tout le monde.
 </div>
 </div>
 
-<div id="outline-container-org2e7d4f4" class="outline-2">
-<h2 id="org2e7d4f4"><span class="section-number-2">3</span> Entraînement</h2>
+<div id="outline-container-org64d3955" class="outline-2">
+<h2 id="org64d3955"><span class="section-number-2">3</span> Entraînement</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgf1d4afe" class="outline-3">
-<h3 id="orgf1d4afe"><span class="section-number-3">3.1</span> Topo Elasticsearch</h3>
+<div id="outline-container-orgf8a97f8" class="outline-3">
+<h3 id="orgf8a97f8"><span class="section-number-3">3.1</span> Topo Elasticsearch</h3>
 <div class="outline-text-3" id="text-3-1">
 </div>
 <ol class="org-ol">
-<li><a id="org2cf3604"></a>Document JSON<br />
+<li><a id="org1fc9f36"></a>Document JSON<br />
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
 <pre class="src src-js">{
-  <span style="color: #95e454;">"name"</span>: <span style="color: #95e454;">"Chips au vinaigre"</span>,
-  <span style="color: #95e454;">"category"</span> : <span style="color: #95e454;">"apero"</span>,
-  <span style="color: #95e454;">"lipides"</span> : 20,
-  <span style="color: #95e454;">"glucides"</span> : 10,
-  <span style="color: #95e454;">"proteines"</span> : 5
+  "name": "Chips au vinaigre",
+  "category" : "apero",
+  "lipides" : 20,
+  "glucides" : 10,
+  "proteines" : 5
 }
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="orgbe10992"></a>API REST<br />
+<li><a id="org0408969"></a>API REST<br />
 <div class="outline-text-4" id="text-3-1-2">
 <div class="org-src-container">
 <pre class="src src-js">&lt;GET|POST|PUT|DELETE&gt;
-http[s]:<span style="color: #99968b;">//</span><span style="color: #99968b;">&lt;hostname&gt;:&lt;port&gt;/[&lt;index&gt;]/[&lt;type&gt;]/[_&lt;keyword&gt;]]</span>
+http[s]://&lt;hostname&gt;:&lt;port&gt;/[&lt;index&gt;]/[&lt;type&gt;]/[_&lt;keyword&gt;]]
 
 </pre>
 </div>
@@ -492,12 +492,12 @@ http[s]:<span style="color: #99968b;">//</span><span style="color: #99968b;">&lt
 </ol>
 </div>
 
-<div id="outline-container-org74cb331" class="outline-3">
-<h3 id="org74cb331"><span class="section-number-3">3.2</span> Installation</h3>
+<div id="outline-container-org219696b" class="outline-3">
+<h3 id="org219696b"><span class="section-number-3">3.2</span> Installation</h3>
 <div class="outline-text-3" id="text-3-2">
 </div>
 <ol class="org-ol">
-<li><a id="org03bf063"></a>Pré-requis&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span></span><br />
+<li><a id="orga7036ab"></a>Pré-requis&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span></span><br />
 <div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
 <li>Docker et docker-compose</li>
@@ -505,7 +505,7 @@ http[s]:<span style="color: #99968b;">//</span><span style="color: #99968b;">&lt
 </div>
 </li>
 
-<li><a id="orgc2cc344"></a>Version 7.x<br />
+<li><a id="orgac20d59"></a>Version 7.x<br />
 <div class="outline-text-4" id="text-3-2-2">
 <ol class="org-ol">
 <li><code>cd elk-compose</code></li>
@@ -518,12 +518,12 @@ http[s]:<span style="color: #99968b;">//</span><span style="color: #99968b;">&lt
 </ol>
 </div>
 
-<div id="outline-container-orgac62414" class="outline-3">
-<h3 id="orgac62414"><span class="section-number-3">3.3</span> Jouons avec Elasticsearch</h3>
+<div id="outline-container-org8640a50" class="outline-3">
+<h3 id="org8640a50"><span class="section-number-3">3.3</span> Jouons avec Elasticsearch</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
 <ol class="org-ol">
-<li><a id="orga0bbfde"></a>Indexer un document&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
+<li><a id="orgb3c8cc7"></a>Indexer un document&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-3-3-1">
 <div class="org-src-container">
 <pre class="src src-json">POST /store/_doc
@@ -548,7 +548,7 @@ POST /store/_doc
 </div>
 </li>
 
-<li><a id="orgb74febe"></a>Requêter&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org3a00119"></a>Requêter&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-3-3-2">
 <div class="org-src-container">
 <pre class="src src-json">GET /store/_search
@@ -570,12 +570,12 @@ GET /store/_search
 </ol>
 </div>
 
-<div id="outline-container-org121c412" class="outline-3">
-<h3 id="org121c412"><span class="section-number-3">3.4</span> Topo Logstash</h3>
+<div id="outline-container-orgbc791ae" class="outline-3">
+<h3 id="orgbc791ae"><span class="section-number-3">3.4</span> Topo Logstash</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
 <ol class="org-ol">
-<li><a id="orgde9d78f"></a>Lancement<br />
+<li><a id="org452c618"></a>Lancement<br />
 <div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
 <pre class="src src-sh">docker-compose run logstash -f /pipeline/demo/ingest.conf
@@ -584,7 +584,7 @@ GET /store/_search
 </div>
 </li>
 
-<li><a id="org4f0f0be"></a>Fichier conf<br />
+<li><a id="org16f7db1"></a>Fichier conf<br />
 <div class="outline-text-4" id="text-3-4-2">
 <div class="org-src-container">
 <pre class="src src-ruby">input { ... }
@@ -597,8 +597,8 @@ output { ... }
 </ol>
 </div>
 
-<div id="outline-container-org29c4682" class="outline-3">
-<h3 id="org29c4682"><span class="section-number-3">3.5</span> Jouons avec Logstash - Données de test</h3>
+<div id="outline-container-org536337f" class="outline-3">
+<h3 id="org536337f"><span class="section-number-3">3.5</span> Jouons avec Logstash - Données de test</h3>
 <div class="outline-text-3" id="text-3-5">
 <ol class="org-ol">
 <li>Récupérer le fichier CSV <code>sample-fr.openfoodfacts.org.products.csv</code></li>
@@ -608,11 +608,11 @@ Vérifier le fichier <code>file-input.conf</code> dans le répertoire pipelines/
 <div class="org-src-container">
 <pre class="src src-ruby">input {
   file {
-    path =&gt; <span style="color: #95e454;">"/data/*.csv"</span>
-    sincedb_path =&gt; <span style="color: #95e454;">"/data/sincedb"</span>
-    mode =&gt; <span style="color: #95e454;">"read"</span>
-    file_completed_action =&gt; <span style="color: #95e454;">"log"</span>
-    file_completed_log_path =&gt; <span style="color: #95e454;">"/data/input.log"</span>
+    path =&gt; "/data/*.csv"
+    sincedb_path =&gt; "/data/sincedb"
+    mode =&gt; "read"
+    file_completed_action =&gt; "log"
+    file_completed_log_path =&gt; "/data/input.log"
   }
 }
 </pre>
@@ -622,7 +622,7 @@ Vérifier le fichier <code>debug-output.conf</code>
 </p>
 <div class="org-src-container">
 <pre class="src src-ruby">output {
-  stdout { codec =&gt; <span style="color: #95e454;">"rubydebug"</span> }
+  stdout { codec =&gt; "rubydebug" }
 }
 </pre>
 </div></li>
@@ -630,8 +630,8 @@ Vérifier le fichier <code>debug-output.conf</code>
 Lancer logstash
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">docker-compose run logstash <span style="color: #95e454;">\</span>
-       -f <span style="color: #95e454;">'/pipelines/student/{file-input,debug-output}.conf'</span>
+<pre class="src src-sh">docker-compose run logstash \
+       -f '/pipelines/student/{file-input,debug-output}.conf'
 </pre>
 </div></li>
 <li>Patienter&#x2026;</li>
@@ -639,8 +639,8 @@ Lancer logstash
 </div>
 </div>
 
-<div id="outline-container-org51e740c" class="outline-3">
-<h3 id="org51e740c"><span class="section-number-3">3.6</span> Ajout du filtre CSV</h3>
+<div id="outline-container-org73c42de" class="outline-3">
+<h3 id="org73c42de"><span class="section-number-3">3.6</span> Ajout du filtre CSV</h3>
 <div class="outline-text-3" id="text-3-6">
 <ol class="org-ol">
 <li><p>
@@ -649,13 +649,13 @@ Vérifier le fichier <code>filter.conf</code> dans le répertoire pipelines/stud
 <div class="org-src-container">
 <pre class="src src-ruby">filter {
     csv {
-        separator =&gt; <span style="color: #95e454;">"  "</span>
-        autogenerate_column_names =&gt; <span style="color: #e5786d;">false</span>
-        autodetect_column_names =&gt; <span style="color: #e5786d;">true</span>
+        separator =&gt; "	"
+        autogenerate_column_names =&gt; false
+        autodetect_column_names =&gt; true
     }
     mutate {
-        split =&gt; { <span style="color: #95e454;">"allergens"</span> =&gt; <span style="color: #95e454;">","</span> }
-        split =&gt; { <span style="color: #95e454;">"packaging_tags"</span> =&gt; <span style="color: #95e454;">","</span> }
+        split =&gt; { "allergens" =&gt; "," }
+        split =&gt; { "packaging_tags" =&gt; "," }
 </pre>
 </div></li>
 <li>Supprimer le fichier <code>since_db</code></li>
@@ -663,16 +663,16 @@ Vérifier le fichier <code>filter.conf</code> dans le répertoire pipelines/stud
 Lancer logstash
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">docker-compose run logstash -w 1 <span style="color: #95e454;">\</span>
-      -f <span style="color: #95e454;">'/pipelines/student/{file-input,debug-output,filter}.conf'</span>
+<pre class="src src-sh">docker-compose run logstash -w 1 \
+      -f '/pipelines/student/{file-input,debug-output,filter}.conf'
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orga87464f" class="outline-3">
-<h3 id="orga87464f"><span class="section-number-3">3.7</span> Ajout de la sortie Elasticsearch</h3>
+<div id="outline-container-org731c076" class="outline-3">
+<h3 id="org731c076"><span class="section-number-3">3.7</span> Ajout de la sortie Elasticsearch</h3>
 <div class="outline-text-3" id="text-3-7">
 <ol class="org-ol">
 <li><p>
@@ -681,15 +681,15 @@ Vérifier le fichier <code>elastic-output.conf</code>
 <div class="org-src-container">
 <pre class="src src-ruby">output {
     elasticsearch {
-        hosts =&gt; [ <span style="color: #95e454;">"https://elasticsearch:9200"</span> ]
-        ssl =&gt; <span style="color: #e5786d;">true</span>
-        cacert =&gt; <span style="color: #95e454;">"${CERTS_DIR}/ca/ca.crt"</span>
-        user =&gt; <span style="color: #95e454;">"logstash_internal"</span>
-        password =&gt; <span style="color: #95e454;">"${LOGSTASH_INTERNAL_PASSWORD}"</span>
-        index =&gt; <span style="color: #95e454;">"openfoodfacts"</span>
-        template =&gt; <span style="color: #95e454;">"/pipelines/student/openfoodfacts.template.json"</span>
-        template_name =&gt; <span style="color: #95e454;">"openfoodfacts"</span>
-        template_overwrite =&gt; <span style="color: #e5786d;">true</span>
+        hosts =&gt; [ "https://elasticsearch:9200" ]
+        ssl =&gt; true
+        cacert =&gt; "${CERTS_DIR}/ca/ca.crt"
+        user =&gt; "logstash_internal"
+        password =&gt; "${LOGSTASH_INTERNAL_PASSWORD}"
+        index =&gt; "openfoodfacts"
+        template =&gt; "/pipelines/student/openfoodfacts.template.json"
+        template_name =&gt; "openfoodfacts"
+        template_overwrite =&gt; true
     }
 }
 </pre>
@@ -698,8 +698,8 @@ Vérifier le fichier <code>elastic-output.conf</code>
 Lancer logstash
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">docker-compose run logstash -w 1 <span style="color: #95e454;">\</span>
-      -f <span style="color: #95e454;">'/pipelines/student/{file-input,filter,elastic-output}.conf'</span>
+<pre class="src src-sh">docker-compose run logstash -w 1 \
+      -f '/pipelines/student/{file-input,filter,elastic-output}.conf'
 </pre>
 </div></li>
 </ol>
@@ -707,7 +707,7 @@ Lancer logstash
 
 
 <ol class="org-ol">
-<li><a id="org428b35f"></a>Dans Kibana &gt; Dev Tools&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span></span><br />
+<li><a id="org627b1b5"></a>Dans Kibana &gt; Dev Tools&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_block">B_block</span></span><br />
 <div class="outline-text-4" id="text-3-7-1">
 <div class="org-src-container">
 <pre class="src src-js">GET /openfoodfacts/_search
@@ -719,8 +719,8 @@ GET /openfoodfacts/_search?q=Snacks
 </ol>
 </div>
 
-<div id="outline-container-org795002f" class="outline-3">
-<h3 id="org795002f"><span class="section-number-3">3.8</span> Query time !</h3>
+<div id="outline-container-org93adfa5" class="outline-3">
+<h3 id="org93adfa5"><span class="section-number-3">3.8</span> Query time !</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Nombre de catégories:
@@ -728,10 +728,10 @@ Nombre de catégories:
 <div class="org-src-container">
 <pre class="src src-js">GET /openfoodfacts/_search
 {
-  <span style="color: #95e454;">"aggs"</span>: {
-    <span style="color: #95e454;">"categories_count"</span>: {
-      <span style="color: #95e454;">"value_count"</span>: {
-        <span style="color: #95e454;">"field"</span>: <span style="color: #95e454;">"main_category"</span>
+  "aggs": {
+    "categories_count": {
+      "value_count": {
+        "field": "main_category"
       }
     }
   }
@@ -742,8 +742,8 @@ Nombre de catégories:
 </div>
 
 
-<div id="outline-container-org65c776e" class="outline-3">
-<h3 id="org65c776e"><span class="section-number-3">3.9</span> Query time !</h3>
+<div id="outline-container-orged30f67" class="outline-3">
+<h3 id="orged30f67"><span class="section-number-3">3.9</span> Query time !</h3>
 <div class="outline-text-3" id="text-3-9">
 <p>
 Répartition des additifs par catégories:
@@ -751,16 +751,16 @@ Répartition des additifs par catégories:
 <div class="org-src-container">
 <pre class="src src-js">GET /openfoodfacts/_search
 {
-  <span style="color: #95e454;">"aggs"</span>: {
-    <span style="color: #95e454;">"par_categorie"</span>: {
-      <span style="color: #95e454;">"terms"</span>: {
-        <span style="color: #95e454;">"field"</span>: <span style="color: #95e454;">"main_category_fr"</span>,
-        <span style="color: #95e454;">"size"</span>: 10
+  "aggs": {
+    "par_categorie": {
+      "terms": {
+        "field": "main_category_fr",
+        "size": 10
       },
-      <span style="color: #95e454;">"aggs"</span>: {
-        <span style="color: #95e454;">"par_additif"</span>: {
-          <span style="color: #95e454;">"terms"</span>: {
-            <span style="color: #95e454;">"field"</span>: <span style="color: #95e454;">"additives_fr"</span>
+      "aggs": {
+        "par_additif": {
+          "terms": {
+            "field": "additives_fr"
           }
         }
       }
@@ -772,8 +772,8 @@ Répartition des additifs par catégories:
 </div>
 </div>
 
-<div id="outline-container-org6f582a3" class="outline-3">
-<h3 id="org6f582a3"><span class="section-number-3">3.10</span> Problème de taille</h3>
+<div id="outline-container-org8831052" class="outline-3">
+<h3 id="org8831052"><span class="section-number-3">3.10</span> Problème de taille</h3>
 <div class="outline-text-3" id="text-3-10">
 
 <div class="figure">
@@ -784,25 +784,25 @@ Répartition des additifs par catégories:
 </div>
 
 
-<div id="outline-container-orgb6d38ef" class="outline-3">
-<h3 id="orgb6d38ef"><span class="section-number-3">3.11</span> Configuration du mapping</h3>
+<div id="outline-container-orgf3d3088" class="outline-3">
+<h3 id="orgf3d3088"><span class="section-number-3">3.11</span> Configuration du mapping</h3>
 <div class="outline-text-3" id="text-3-11">
 <div class="org-src-container">
 <pre class="src src-js">DELETE openfoodfacts
 
 PUT /openfoodfacts
 {
-    <span style="color: #95e454;">"settings"</span> : {
-        <span style="color: #95e454;">"number_of_shards"</span>: 3,
-        <span style="color: #95e454;">"number_of_replicas"</span>: 0
+    "settings" : {
+        "number_of_shards": 3,
+        "number_of_replicas": 0
     },
-    <span style="color: #95e454;">"mappings"</span>: {
-        <span style="color: #95e454;">"dynamic_templates"</span>: [
+    "mappings": {
+        "dynamic_templates": [
             {
-                <span style="color: #95e454;">"strings"</span>: {
-                    <span style="color: #95e454;">"match_mapping_type"</span>: <span style="color: #95e454;">"string"</span>,
-                    <span style="color: #95e454;">"mapping"</span>: {
-                        <span style="color: #95e454;">"type"</span>: <span style="color: #95e454;">"keyword"</span>
+                "strings": {
+                    "match_mapping_type": "string",
+                    "mapping": {
+                        "type": "keyword"
                     }
                 }
             }
@@ -814,12 +814,12 @@ PUT /openfoodfacts
 </div>
 </div>
 
-<div id="outline-container-org8bbe398" class="outline-3">
-<h3 id="org8bbe398"><span class="section-number-3">3.12</span> Jouons avec Kibana</h3>
+<div id="outline-container-org38d67a8" class="outline-3">
+<h3 id="org38d67a8"><span class="section-number-3">3.12</span> Jouons avec Kibana</h3>
 <div class="outline-text-3" id="text-3-12">
 </div>
 <ol class="org-ol">
-<li><a id="orgfc75a84"></a>Navigation dans les données<br />
+<li><a id="org1e34445"></a>Navigation dans les données<br />
 <div class="outline-text-4" id="text-3-12-1">
 <ol class="org-ol">
 <li>Configurer l'index, décocher <b>Index contains time-based events</b></li>
@@ -829,7 +829,7 @@ PUT /openfoodfacts
 </div>
 </li>
 
-<li><a id="org4a4e68e"></a>Première visualisation - Nuage des principales catégories<br />
+<li><a id="org9110aaa"></a>Première visualisation - Nuage des principales catégories<br />
 <div class="outline-text-4" id="text-3-12-2">
 <ol class="org-ol">
 <li>Accéder à l'onglet <b>Visualize</b></li>
@@ -848,12 +848,12 @@ PUT /openfoodfacts
 </ol>
 </div>
 
-<div id="outline-container-org14cc707" class="outline-3">
-<h3 id="org14cc707"><span class="section-number-3">3.13</span> Kibana - Suite</h3>
+<div id="outline-container-orgfa3e2b6" class="outline-3">
+<h3 id="orgfa3e2b6"><span class="section-number-3">3.13</span> Kibana - Suite</h3>
 <div class="outline-text-3" id="text-3-13">
 </div>
 <ol class="org-ol">
-<li><a id="org1a05d9f"></a>Tableau des marques<br />
+<li><a id="orgafa108c"></a>Tableau des marques<br />
 <div class="outline-text-4" id="text-3-13-1">
 <ol class="org-ol">
 <li>Sélectionner <b>Table</b></li>
@@ -871,12 +871,12 @@ PUT /openfoodfacts
 </ol>
 </div>
 
-<div id="outline-container-org23c96ab" class="outline-3">
-<h3 id="org23c96ab"><span class="section-number-3">3.14</span> Kibana - Mmmmm Donut</h3>
+<div id="outline-container-orgf28ef39" class="outline-3">
+<h3 id="orgf28ef39"><span class="section-number-3">3.14</span> Kibana - Mmmmm Donut</h3>
 <div class="outline-text-3" id="text-3-14">
 </div>
 <ol class="org-ol">
-<li><a id="orgff5e0b3"></a>Donut des allergènes<br />
+<li><a id="org1fd15b6"></a>Donut des allergènes<br />
 <div class="outline-text-4" id="text-3-14-1">
 <ol class="org-ol">
 <li>Sélectionner <b>Pie chart</b></li>
@@ -895,12 +895,12 @@ PUT /openfoodfacts
 </ol>
 </div>
 
-<div id="outline-container-org7319c1b" class="outline-3">
-<h3 id="org7319c1b"><span class="section-number-3">3.15</span> Kibana - Fin (?)</h3>
+<div id="outline-container-org779eaf9" class="outline-3">
+<h3 id="org779eaf9"><span class="section-number-3">3.15</span> Kibana - Fin (?)</h3>
 <div class="outline-text-3" id="text-3-15">
 </div>
 <ol class="org-ol">
-<li><a id="org565dd43"></a>Histogramme des additifs<br />
+<li><a id="orgc6d2fcf"></a>Histogramme des additifs<br />
 <div class="outline-text-4" id="text-3-15-1">
 <ol class="org-ol">
 <li>Sélectionner <b>Vertical Bar Chart</b></li>
@@ -909,7 +909,7 @@ PUT /openfoodfacts
 </div>
 </li>
 
-<li><a id="org8799c41"></a>Tag cloud des produits<br />
+<li><a id="org5e5f285"></a>Tag cloud des produits<br />
 <div class="outline-text-4" id="text-3-15-2">
 <p>
 On veut ça:
@@ -920,8 +920,8 @@ On veut ça:
 </ol>
 </div>
 
-<div id="outline-container-orgf1a77f0" class="outline-3">
-<h3 id="orgf1a77f0"><span class="section-number-3">3.16</span> Dashboard</h3>
+<div id="outline-container-orgc2292f7" class="outline-3">
+<h3 id="orgc2292f7"><span class="section-number-3">3.16</span> Dashboard</h3>
 <div class="outline-text-3" id="text-3-16">
 <ol class="org-ol">
 <li>Ajouter tous les widgets dans un nouveau dashboard</li>
@@ -931,12 +931,12 @@ On veut ça:
 </div>
 </div>
 
-<div id="outline-container-org14898ad" class="outline-2">
-<h2 id="org14898ad"><span class="section-number-2">4</span> Produit final</h2>
+<div id="outline-container-orgf09e386" class="outline-2">
+<h2 id="orgf09e386"><span class="section-number-2">4</span> Produit final</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org112325f" class="outline-3">
-<h3 id="org112325f"><span class="section-number-3">4.1</span> Chargeons toute la base !</h3>
+<div id="outline-container-orgd09b549" class="outline-3">
+<h3 id="orgd09b549"><span class="section-number-3">4.1</span> Chargeons toute la base !</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>L'objectif est de voir le résultat avec l'ensemble des données</li>
@@ -945,8 +945,8 @@ On veut ça:
 Lancer logstash (attention, utiliser <span class="underline">file-input-full</span>)
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">docker-compose run --rm logstash -w 1 <span style="color: #95e454;">\</span>
-      -f <span style="color: #95e454;">'/pipelines/student/{file-input-full,filter,elastic-output}.conf'</span>
+<pre class="src src-sh">docker-compose run --rm logstash -w 1 \
+      -f '/pipelines/student/{file-input-full,filter,elastic-output}.conf'
 </pre>
 </div></li>
 </ul>
@@ -954,16 +954,16 @@ Lancer logstash (attention, utiliser <span class="underline">file-input-full</sp
 </div>
 </div>
 
-<div id="outline-container-org46cafea" class="outline-2">
-<h2 id="org46cafea"><span class="section-number-2">5</span> Conclusion</h2>
+<div id="outline-container-org813b7e9" class="outline-2">
+<h2 id="org813b7e9"><span class="section-number-2">5</span> Conclusion</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgf465dd8" class="outline-3">
-<h3 id="orgf465dd8"><span class="section-number-3">5.1</span> Beer</h3>
+<div id="outline-container-org9d7ebfe" class="outline-3">
+<h3 id="org9d7ebfe"><span class="section-number-3">5.1</span> Beer</h3>
 <div class="outline-text-3" id="text-5-1">
 </div>
 <ol class="org-ol">
-<li><a id="orga6480af"></a>Image&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org3eb10ed"></a>Image&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-5-1-1">
 
 <div class="figure">
@@ -973,7 +973,7 @@ Lancer logstash (attention, utiliser <span class="underline">file-input-full</sp
 </div>
 </li>
 
-<li><a id="org0da58cb"></a>Texte&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org37298d2"></a>Texte&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-5-1-2">
 <p>
 Mission accomplie !
@@ -989,8 +989,8 @@ Mission accomplie !
 </ol>
 </div>
 
-<div id="outline-container-org5ff9fc1" class="outline-3">
-<h3 id="org5ff9fc1"><span class="section-number-3">5.2</span> Pour aller plus loin</h3>
+<div id="outline-container-org4be2ba0" class="outline-3">
+<h3 id="org4be2ba0"><span class="section-number-3">5.2</span> Pour aller plus loin</h3>
 <div class="outline-text-3" id="text-5-2">
 <ul class="org-ul">
 <li>Fixer problèmes d'import
@@ -1010,17 +1010,17 @@ Mission accomplie !
 </div>
 </div>
 
-<div id="outline-container-org8730016" class="outline-3">
-<h3 id="org8730016"><span class="section-number-3">5.3</span> Merci</h3>
+<div id="outline-container-org3b41eaf" class="outline-3">
+<h3 id="org3b41eaf"><span class="section-number-3">5.3</span> Merci</h3>
 <div class="outline-text-3" id="text-5-3">
 </div>
 <ol class="org-ol">
-<li><a id="org6ea4bd6"></a>Col1&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org2f0f4f2"></a>Col1&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-5-3-1">
 </div>
 </li>
 
-<li><a id="org825603d"></a>?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org0792cf7"></a>?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="B_alertblock">B_alertblock</span>&#xa0;<span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-5-3-2">
 <p>
 Questions
@@ -1028,7 +1028,7 @@ Questions
 </div>
 </li>
 
-<li><a id="org352b52c"></a>Col3&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<li><a id="org5744691"></a>Col3&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
 <div class="outline-text-4" id="text-5-3-3">
 </div>
 </li>
@@ -1037,9 +1037,9 @@ Questions
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Date: 30/03/2020</p>
+<p class="date">Date: 11/12/2020</p>
 <p class="author">Auteur: Géraud Dugé de Bernonville</p>
-<p class="date">Created: 2020-11-27 ven. 14:26</p>
+<p class="date">Created: 2020-12-10 jeu. 19:23</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

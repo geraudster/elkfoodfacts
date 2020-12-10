@@ -1,7 +1,7 @@
 #+TITLE:     Elastic & food fact checking
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-#+DATE:      30/03/2020
+#+DATE:      11/12/2020
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
@@ -450,6 +450,6 @@ Questions
 #+LATEX_HEADER: \RequirePackage{fancyvrb}
 #+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
 #+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
-#+BEAMER_HEADER: \logo{\includegraphics[height=0.7cm]{images/logo-zenika.png}}
+#+BEAMER_HEADER: \logo{\includegraphics[height=0.7cm]{images/logo-formation.png}}
 #+LATEX_HEADER: \usepackage[default,osfigures,scale=0.95]{opensans}
 #+LATEX_HEADER: \usepackage[T1]{fontenc}
