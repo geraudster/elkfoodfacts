@@ -1,35 +1,36 @@
 {
-    "template" : "openfoodfacts*",
-    "settings" : {
-	      "index.refresh_interval" : "15s",
-	      "number_of_shards": 1,
-	      "number_of_replicas": 0
-    },
-    "mappings": {
-	      "properties": {
-		        "@timestamp": {
-		            "type": "date"
-		        },
-		        "@version": {
-		            "type": "keyword"
-		        },
-		        "text": {
-		            "type": "text",
-		            "fields":
-                {
-			              "fr": {
-			                  "type": "text",
-			                  "analyzer": "french"
-			              },
-                    "en": {
-			                  "type": "text",
-			                  "analyzer": "english"
-			              }
+    "index_patterns" : "openfoodfacts*",
+    "template": {
+        "settings" : {
+	          "index.refresh_interval" : "15s",
+	          "number_of_shards": 1,
+	          "number_of_replicas": 0
+        },
+        "mappings": {
+	          "properties": {
+		            "@timestamp": {
+		                "type": "date"
+		            },
+		            "@version": {
+		                "type": "keyword"
+		            },
+		            "text": {
+		                "type": "text",
+		                "fields":
+                    {
+			                  "fr": {
+			                      "type": "text",
+			                      "analyzer": "french"
+			                  },
+                        "en": {
+			                      "type": "text",
+			                      "analyzer": "english"
+			                  }
+		                }
 		            }
-		        }
-	      },
-	      "dynamic_templates": [
-		        {
+	          },
+	          "dynamic_templates": [
+		            {
                 "unixtimestamp_template": {
                     "match": "*_t",
                     "mapping": {
@@ -38,7 +39,7 @@
                     }
                 }
             },
-            {
+                {
                 "datetime_template": {
                     "match": "*_datetime",
                     "mapping": {
@@ -47,7 +48,7 @@
                     }
                 }
             },
-            {
+                {
                 "tags_template": {
                     "match": "*_tags",
                     "mapping": {
@@ -55,7 +56,7 @@
                     }
                 }
             },
-            {
+                {
                 "fr_template": {
                     "match": "*_fr",
                     "mapping": {
@@ -63,7 +64,7 @@
                     }
                 }
             },
-            {
+                {
                 "en_template": {
                     "match": "*_en",
                     "mapping": {
@@ -71,15 +72,15 @@
                     }
                 }
             },
-            {
+                {
                 "amount_100g_template": {
                     "match": "*_100g",
                     "mapping": {
-                        "type": "integer"
+                        "type": "float"
                     }
                 }
             },
-            {
+                {
                 "amount_serving_template": {
                     "match": "*_serving",
                     "mapping": {
@@ -87,7 +88,7 @@
                     }
                 }
             },
-            {
+                {
                 "string_template": {
 			              "match": "*",
 			              "match_mapping_type": "string",
@@ -96,6 +97,7 @@
 			              }
 		            }
 		        }
-	      ]
+	          ]
+        }
     }
 }

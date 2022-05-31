@@ -124,13 +124,13 @@ http[s]://<hostname>:<port>/[<index>]/[<type>]/[_<keyword>]]
 :BEAMER_env: alertblock
 :END:
 
-+ Docker et docker-compose
++ Docker et plugin docker compose
 
-*** Version 7.x
+*** Version 8.x
 
 1. =cd elk-compose=
-2. Lancer la stack: =docker-compose up=
-3. Ouvrir http://localhost:5601
+2. Lancer la stack: =docker compose up -d=
+3. Ouvrir http://localhost:5601 (elastic/elastic_password)
 3. Aller dans _Dev Tools_ (http://localhost:5601/app/kibana#/dev_tools/console)
 
 ** Jouons avec Elasticsearch
@@ -187,7 +187,7 @@ GET /store/_search
 *** Lancement
 
 #+BEGIN_SRC sh
-docker-compose run logstash -f /pipeline/demo/ingest.conf
+docker compose up logstash
 #+END_SRC
 
 *** Fichier conf
@@ -207,8 +207,7 @@ output { ... }
   #+INCLUDE: "../pipelines/student/debug-output.conf" src ruby
 4. Lancer logstash
   #+BEGIN_SRC sh
-docker-compose run logstash \
-       -f '/pipelines/student/{file-input,debug-output}.conf'
+docker compose up --force-recreate logstash
   #+END_SRC
 5. Patienter...
 
@@ -216,20 +215,26 @@ docker-compose run logstash \
 
 1. Vérifier le fichier =filter.conf= dans le répertoire pipelines/student
   #+INCLUDE: "../pipelines/student/filter.conf" src ruby :lines "-10"
-2. Supprimer le fichier =since_db=
-3. Lancer logstash
+2. Mettre à jour la propriété =path.config= du fichier =pipelines/student/pipelines.yml=
+   #+begin_src yaml
+     path.config: "/pipelines/student/{file-input,debug-output,filter}.conf"
+   #+end_src
+3. Supprimer le fichier =since_db=
+4. Relancer logstash
   #+BEGIN_SRC sh
-docker-compose run logstash -w 1 \
-      -f '/pipelines/student/{file-input,debug-output,filter}.conf'
+docker compose up --force-recreate logstash
   #+END_SRC
 
 ** Ajout de la sortie Elasticsearch
 1. Vérifier le fichier =elastic-output.conf=
   #+INCLUDE: "../pipelines/student/elastic-output.conf" src ruby
-2. Lancer logstash
+2. Mettre à jour la propriété =path.config= du fichier =pipelines/student/pipelines.yml=
+   #+begin_src yaml
+     path.config: "/pipelines/student/{file-input,debug-output,filter,elastic-output}.conf"
+   #+end_src
+3. Relancer logstash
   #+BEGIN_SRC sh
-docker-compose run logstash -w 1 \
-      -f '/pipelines/student/{file-input,filter,elastic-output}.conf'
+docker compose up --force-recreate  logstash
   #+END_SRC
 
 
@@ -371,10 +376,13 @@ On veut ça:
 ** Chargeons toute la base !
 + L'objectif est de voir le résultat avec l'ensemble des données
 + Pour éviter les doublons, on supprime l'index =openfoodfacts=
-+ Lancer logstash (attention, utiliser _file-input-full_)
++ Mettre à jour la propriété =path.config= du fichier =pipelines/student/pipelines.yml=
+   #+begin_src yaml
+     path.config: "/pipelines/student/{file-input-full,debug-output,filter,elastic-output}.conf"
+   #+end_src
++ Relancer logstash
   #+BEGIN_SRC sh
-docker-compose run --rm logstash -w 1 \
-      -f '/pipelines/student/{file-input-full,filter,elastic-output}.conf'
+docker compose up --force-recreate logstash
   #+END_SRC
 
 * Conclusion
