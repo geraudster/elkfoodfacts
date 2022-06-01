@@ -1,7 +1,7 @@
 #+TITLE:     Elastic & food fact checking
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-#+DATE:      11/12/2020
+# #+DATE:      11/12/2020
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
@@ -38,19 +38,27 @@ pour tout le monde.
 
 *** Android App 						      :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.5
+:BEAMER_col: 0.3
 :END:
 
 #+ATTR_LATEX: :height 0.75\textheight
-[[./images/off-android-app.png]]
+[[./images/off-android-app.jpg]]
 
 *** Additifs 							      :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.5
+:BEAMER_col: 0.3
 :END:
 
 #+ATTR_LATEX: :height 0.75\textheight
 [[./images/off-android-app-additives.jpg]]
+
+*** Additifs 							      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+#+ATTR_LATEX: :height 0.75\textheight
+[[./images/off-android-app-additives-bad.jpg]]
 
 ** Ce qu'on aimerait avoir
 
@@ -323,13 +331,16 @@ PUT /openfoodfacts
 ** Jouons avec Kibana
 
 *** Navigation dans les données
-1. Configurer l'index, décocher *Index contains time-based events*
-2. Accéder à l'onglet *Discover*
-3. Sélectionner les champs =additives_fr=, =main_category_fr=,...
+1. Configurer la *data view*, dans *Stack Management*, puis *Data Views*
+   1. Renseigner openfoodfacts pour le nom
+   2. Sélectionner *--- I don't want to use the time filter ---*
+3. Accéder à l'onglet *Discover*
+4. Sélectionner les champs =additives_fr=, =main_category_fr=,...
 
-*** Première visualisation - Nuage des principales catégories
+** Kibana - Première visualisation
+***  Nuage des principales catégories
 1. Accéder à l'onglet *Visualize*
-2. Sélectionner *Tag Cloud*
+2. Sélectionner *Aggregation based* puis *Tag Cloud*
 3. Configurer un bucket *Tags*
    + Aggregation = Terms
    + Field = =main_category_fr=
@@ -339,28 +350,25 @@ PUT /openfoodfacts
 
 ** Kibana - Suite
 *** Tableau des marques
-1. Sélectionner *Table*
-2. Créer un bucket *Split Rows*
-   + Aggregation = Terms
-   + Field = =brands=
-   + Size = 20
-   + Custom Label = Marques
-3. Sauvegarder
+1. Sélectionner *Lens*
+2. Glisser le champ =brands= vers la visu
+3. Sélectionner le type *Table*
+4. Cliquer sur =Top 5 values of brands*
+   + Number of values = 20
+5. Sauvegarder
 
 ** Kibana - Mmmmm Donut
 *** Donut des allergènes
-1. Sélectionner *Pie chart*
-2. Créer un bucket *Split Slices*
-   + Aggregation = Terms
-   + Field = =allergens=
-   + Size = 10
-   + Custom Label = Allergènes
-   + Options > Sélectionner *Donut*
-3. Sauvegarder
+1. Sélectionner *Lens*
+2. Glisser le champ =allergens= vers la visu
+3. Sélectionner le type *Donut*
+4. Cliquer sur =Top 5 values of brands
+   + Number of values = 10
+5. Sauvegarder
 
 ** Kibana - Fin (?)
 *** Histogramme des additifs
-1. Sélectionner *Vertical Bar Chart*
+1. Sélectionner *Bar horizontal*
 2. À vous de jouer...
 
 *** Tag cloud des produits
@@ -458,6 +466,6 @@ Questions
 #+LATEX_HEADER: \RequirePackage{fancyvrb}
 #+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
 #+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
-#+BEAMER_HEADER: \logo{\includegraphics[height=0.7cm]{images/logo-formation.png}}
+# #+BEAMER_HEADER: \logo{\includegraphics[height=0.7cm]{images/logo-formation.png}}
 #+LATEX_HEADER: \usepackage[default,osfigures,scale=0.95]{opensans}
 #+LATEX_HEADER: \usepackage[T1]{fontenc}
