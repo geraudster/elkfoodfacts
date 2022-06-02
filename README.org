@@ -26,54 +26,37 @@ entre dans la composition...
 ** Pré-requis
 
 - docker
-- docker-compose
+- plugin docker compose
 
-** Installation
+** Démarrage
 
 La première fois, clone ce repository, se positionner dedans puis:
 
 #+BEGIN_SRC bash
-# Generate certificates
-docker-compose -f docker-compose-create-certs.yml run --rm create_certs
-
-# Start elasticsearch
-docker-compose up -d elasticsearch
-
-# Generate passwords
-docker-compose -f docker-compose-create-certs.yml run --rm init_passwords
-
-# Start kibana
-docker-compose up -d kibana
+# Start elasticsearch and kibana
+docker compose up -d
 #+END_SRC
 
-Accéder à Kibana: https://localhost:5601 (login/mdp: elastic/ELASTIC_PASSWORD)
-
-** Utilisation
-
-Après l'installation:
-
-#+BEGIN_SRC bash
-docker-compose up -d
-#+END_SRC
+Accéder à Kibana: https://localhost:5601 (login/mdp: elastic/elastic_password)
 
 Pour arrêter:
 
 #+BEGIN_SRC bash
-docker-compose stop
+docker compose stop
 #+END_SRC
 
-Pour lancer logstashm positionner les configurations de pipeline dans
+Pour lancer logstash, positionner les configurations de pipeline dans
 le répertoire _pipeline_. Placer les données dans le répertoire _data_.
 Démarrer ensuite logstash:
 
 #+BEGIN_SRC bash
-docker-compose stop logstash
-docker-compose up logstash
+docker compose stop logstash
+docker compose up --force-recreate logstash
 #+END_SRC
 
 ** Troubleshoot
 
-You may fall on the following error when starting ElasticSearch:
+You may fall on the following error when starting Elasticsearch:
 
 #+BEGIN_SRC bash
 max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
