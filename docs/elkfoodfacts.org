@@ -1,7 +1,7 @@
 #+TITLE:     Elastic & food fact checking
 #+AUTHOR:    Géraud Dugé de Bernonville
 #+EMAIL:     geraud.dugedebernonville@zenika.com
-# #+DATE:      11/12/2020
+#+DATE:      02/12/2022
 
 * Contexte
 ** Qualité des aliments & sécurité sanitaire
@@ -138,7 +138,7 @@ http[s]://<hostname>:<port>/[<index>]/[<type>]/[_<keyword>]]
 
 1. =cd elk-compose=
 2. Lancer la stack: =docker compose up -d=
-3. Ouvrir http://localhost:5601 (elastic/elastic_password)
+3. Ouvrir http://localhost:5601 (=elastic= / =elastic_password=)
 3. Aller dans _Dev Tools_ (http://localhost:5601/app/kibana#/dev_tools/console)
 
 ** Jouons avec Elasticsearch

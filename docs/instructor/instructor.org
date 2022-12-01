@@ -19,6 +19,10 @@ Depuis le répertoire cloné:
 
 Extraction des champs à splitter:
 #+BEGIN_SRC bash
-< data/sample-fr.openfoodfacts.org.products.csv head -1  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf 'split => { "%s" => "," }\n' > data/split_column.conf
+< data/sample-fr.openfoodfacts.org.products.csv head -1  | tr '\t' '\n' | grep -E 's_fr$|_tags$' | xargs printf '"%s" => ","\n' > data/split_column.conf
 #+END_SRC
 
+Extraction des champs float:
+#+BEGIN_SRC bash
+< data/sample-fr.openfoodfacts.org.products.csv head -1  | tr '\t' '\n' | grep -E '_100g$' | xargs printf '"%s" => "float"\n' > data/float_column.conf
+#+END_SRC
