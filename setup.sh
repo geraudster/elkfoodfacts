@@ -49,7 +49,7 @@ curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} -
       "cluster": ["manage_index_templates", "monitor"],
       "index": [
         {
-          "names": ["openfoodfacts*"],
+          "names": ["openfoodfacts*", "notemplate-openfoodfacts"],
           "privileges": ["all"]
         }
       ]

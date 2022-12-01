@@ -1,5 +1,5 @@
 - pipeline.id: foodfact-pipeline
-  path.config: "/pipelines/student/{file-input-full,filter,elastic-output}.conf"
+  path.config: "/pipelines/student/{file-input,debug-output}.conf"
   pipeline.workers: 1
   pipeline.ecs_compatibility: "disabled"
   pipeline.batch.size: 1000

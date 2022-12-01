@@ -91,7 +91,7 @@ services:
     volumes:
       - ./pipelines:/pipelines:ro
       - ./pipelines/student/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
-      - ./data/:/data:ro
+      - ./data/:/data:rw
       - ./logstash-entrypoint.sh:/usr/bin/logstash-entrypoint.sh:ro
       - certs:/usr/share/logstash/config/certs:ro
       - api-key:/usr/share/logstash/config/api-key:ro

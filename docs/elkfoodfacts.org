@@ -227,8 +227,7 @@ docker compose up --force-recreate logstash
    #+begin_src yaml
      path.config: "/pipelines/student/{file-input,debug-output,filter}.conf"
    #+end_src
-3. Supprimer le fichier =since_db=
-4. Relancer logstash
+3. Relancer logstash
   #+BEGIN_SRC sh
 docker compose up --force-recreate logstash
   #+END_SRC
@@ -238,7 +237,7 @@ docker compose up --force-recreate logstash
   #+INCLUDE: "../pipelines/student/elastic-output.conf" src ruby
 2. Mettre à jour la propriété =path.config= du fichier =pipelines/student/pipelines.yml=
    #+begin_src yaml
-     path.config: "/pipelines/student/{file-input,debug-output,filter,elastic-output}.conf"
+     path.config: "/pipelines/student/{file-input,filter,elastic-output}.conf"
    #+end_src
 3. Relancer logstash
   #+BEGIN_SRC sh
@@ -386,12 +385,13 @@ On veut ça:
 + Pour éviter les doublons, on supprime l'index =openfoodfacts=
 + Mettre à jour la propriété =path.config= du fichier =pipelines/student/pipelines.yml=
    #+begin_src yaml
-     path.config: "/pipelines/student/{file-input-full,debug-output,filter,elastic-output}.conf"
+     path.config: "/pipelines/student/{file-input-full,filter,elastic-output}.conf"
    #+end_src
 + Relancer logstash
   #+BEGIN_SRC sh
 docker compose up --force-recreate logstash
   #+END_SRC
++ Surveiller le dashboard (pour notre problématique, il est possible de filtrer sur =categories_tags :en\:beer*=)
 
 * Conclusion
 
@@ -421,30 +421,31 @@ Mission accomplie !
   + Champs trop longs
   + Encodage
   + Guillemets mal positionnés
-+ Découper les champs, par exemple :
-  + E330 - Acide citrique,E150c - Caramel ammoniacal,E300 - Acide ascorbique
-  + Frais,Produits laitiers,Desserts,Fromages,Fromages blancs,Fromages-blancs-aromatises
 + Configurer l'analyseur pour utiliser la langue française
 + Utiliser les informations de géolocalisation
++ Utiliser les dates de création / modification
++ ...
 
 ** Merci
 
 *** Col1							      :BMCOL:
     :PROPERTIES:
-    :BEAMER_col: 0.3
+    :BEAMER_col: 0.2
     :END:
 
-*** ? 							 :B_alertblock:BMCOL:
+*** Questions ?                                          :B_alertblock:BMCOL:
     :PROPERTIES:
-    :BEAMER_col: 0.3
+    :BEAMER_col: 0.6
     :BEAMER_env: alertblock
     :END:
 
-Questions
++ Twitter: @geraudster
++ E-mail: geraud.dugedebernonville@zenika.com
+
 
 *** Col3 							      :BMCOL:
     :PROPERTIES:
-    :BEAMER_col: 0.3
+    :BEAMER_col: 0.2
     :BEAMER_opt: 30
     :END:
 
